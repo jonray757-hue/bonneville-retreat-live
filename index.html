@@ -55,7 +55,6 @@
       linear-gradient(180deg, #0d1410 0%, #16241c 30%, #1f3328 55%, #16241c 80%, #0d1410 100%);
   }
 
-  /* layered hills/steam SVG */
   .hero-scene { position: absolute; bottom: 0; left: 0; right: 0; height: 62%; }
 
   .hero-content { position: relative; z-index: 2; max-width: 680px; width: 100%; }
@@ -225,164 +224,7 @@
   }
   .divider-quote span { color: var(--copper); font-weight: 600; }
 
-  /* ── ORDER FORM ── */
-  .order-section {
-    max-width: 720px; margin: 0 auto;
-    padding: 64px 24px 80px;
-  }
-  .order-section .section-label { text-align: center; margin-bottom: 8px; }
-  .order-section h2 {
-    font-family: 'Oswald', sans-serif;
-    font-size: clamp(1.5rem, 3.8vw, 2rem);
-    text-align: center; margin-bottom: 10px;
-    text-transform: uppercase; letter-spacing: 0.5px;
-  }
-  .order-intro {
-    text-align: center; font-size: 0.83rem;
-    color: var(--muted); margin-bottom: 40px; line-height: 1.7;
-  }
-  .order-note {
-    background: var(--panel); border-left: 2px solid var(--copper);
-    padding: 12px 16px; font-size: 0.78rem; color: rgba(232,240,234,0.6);
-    margin-bottom: 32px; line-height: 1.6; border-radius: 0 2px 2px 0;
-  }
-
-  .field-wrap { margin-bottom: 32px; }
-  .field-label {
-    display: block; font-size: 0.62rem;
-    letter-spacing: 3px; text-transform: uppercase;
-    color: var(--copper); margin-bottom: 10px;
-  }
-  input[type="text"], input[type="email"], input[type="tel"] {
-    width: 100%; padding: 14px 16px;
-    background: var(--panel); border: 1px solid var(--border);
-    color: var(--sage-lt); font-family: 'Inter', sans-serif;
-    font-size: 0.95rem; font-weight: 300; border-radius: 2px;
-    transition: border-color 0.2s;
-  }
-  input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus { outline: none; border-color: var(--copper); }
-  input[type="text"].err, input[type="email"].err, input[type="tel"].err { border-color: var(--red); }
-
-  .pick-head {
-    display: flex; align-items: baseline;
-    justify-content: space-between; margin-bottom: 14px;
-  }
-  .pick-title {
-    font-family: 'Oswald', sans-serif;
-    font-size: 1.25rem; color: var(--sage-lt);
-    text-transform: uppercase; letter-spacing: 0.5px;
-  }
-  .pick-req {
-    font-size: 0.62rem; letter-spacing: 2px;
-    text-transform: uppercase; color: var(--muted);
-  }
-
-  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
-  @media(max-width: 520px) { .cards { grid-template-columns: 1fr; } }
-
-  .card {
-    background: var(--panel); border: 1px solid var(--border);
-    border-radius: 2px; padding: 14px 16px 14px 44px;
-    cursor: pointer; position: relative;
-    transition: border-color 0.15s, background 0.15s;
-    user-select: none;
-  }
-  .card:hover { border-color: rgba(143,174,154,0.4); }
-  .card.selected { border-color: var(--copper); background: #1d1812; }
-
-  .card-radio {
-    position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
-    width: 16px; height: 16px; border-radius: 50%;
-    border: 1.5px solid var(--muted); flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    transition: border-color 0.15s;
-  }
-  .card.selected .card-radio { border-color: var(--copper); }
-  .card-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--copper); opacity: 0; transition: opacity 0.15s;
-  }
-  .card.selected .card-dot { opacity: 1; }
-
-  .card-name { font-size: 0.85rem; font-weight: 400; color: var(--sage-lt); line-height: 1.3; }
-  .card-desc { font-size: 0.72rem; color: var(--muted); margin-top: 4px; line-height: 1.5; }
-
-  .tag {
-    display: inline-block; font-size: 0.58rem; letter-spacing: 1px;
-    text-transform: uppercase; padding: 1px 5px; border-radius: 2px;
-    margin-left: 5px; vertical-align: middle;
-  }
-  .tag-v { background: #132516; color: #7fc47f; border: 1px solid #1f3a22; }
-  .tag-s { background: #2a1a0a; color: #d4883a; border: 1px solid #3a2a1a; }
-  .tag-sleeps { background: #16201a; color: var(--sage); border: 1px solid var(--border); }
-
-  .err-msg { font-size: 0.75rem; color: var(--red); margin-top: 6px; display: none; }
-  .err-msg.show { display: block; }
-
-  .section-gap { margin-top: 32px; }
-
-  .submit-area { margin-top: 40px; text-align: center; }
-  .submit-btn {
-    width: 100%; padding: 18px;
-    background: var(--copper); color: var(--forest-deep);
-    font-family: 'Inter', sans-serif; font-size: 0.72rem;
-    font-weight: 500; letter-spacing: 4px; text-transform: uppercase;
-    border: none; border-radius: 2px; cursor: pointer;
-    transition: background 0.2s;
-  }
-  .submit-btn:hover { background: #d49a64; }
-  .submit-btn:disabled { background: #1a2820; color: var(--muted); cursor: not-allowed; }
-  .submit-legal {
-    font-size: 0.68rem; color: var(--muted); margin-top: 14px; line-height: 1.6;
-  }
-
-  .spinner {
-    display: inline-block; width: 14px; height: 14px;
-    border: 2px solid rgba(0,0,0,0.25); border-top-color: #000;
-    border-radius: 50%; animation: spin 0.7s linear infinite;
-    vertical-align: middle; margin-right: 8px;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* ── SUCCESS ── */
-  .success {
-    display: none; min-height: 80vh; min-height: 80svh;
-    align-items: center; justify-content: center;
-    flex-direction: column; text-align: center;
-    padding: 70px 24px;
-  }
-  .success.show { display: flex; }
-  .success-ring {
-    width: 68px; height: 68px; border-radius: 50%;
-    border: 1px solid var(--copper);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.4rem; margin-bottom: 26px;
-    color: var(--copper);
-  }
-  .success h2 {
-    font-family: 'Oswald', sans-serif;
-    font-size: 1.9rem; margin-bottom: 12px;
-    text-transform: uppercase; letter-spacing: 0.5px;
-  }
-  .success p { font-size: 0.86rem; color: var(--muted); line-height: 1.8; max-width: 380px; }
-  .success-card {
-    margin-top: 32px; background: var(--panel);
-    border: 1px solid var(--border); border-radius: 3px;
-    padding: 22px 30px; text-align: left; min-width: 280px;
-  }
-  .sc-row { margin-bottom: 12px; }
-  .sc-row:last-child { margin-bottom: 0; }
-  .sc-label { font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
-  .sc-val { font-size: 0.86rem; color: var(--sage-lt); }
-
-  /* footer */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 26px 24px; text-align: center;
-    font-size: 0.66rem; color: var(--muted); letter-spacing: 1px;
-  }
-  
-  /* contact info */
+  /* ── CONTACT INFO ── */
   .contact-info {
     text-align: center;
     padding: 40px 24px;
@@ -409,6 +251,63 @@
   .contact-info a:hover {
     text-decoration: underline;
   }
+
+  /* ── GHL FORM SECTION ── */
+  .ghl-form-section {
+    max-width: 720px; margin: 0 auto;
+    padding: 64px 24px 80px;
+  }
+  .ghl-form-section .section-label { text-align: center; margin-bottom: 8px; }
+  .ghl-form-section h2 {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(1.5rem, 3.8vw, 2rem);
+    text-align: center; margin-bottom: 10px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .ghl-form-intro {
+    text-align: center; font-size: 0.83rem;
+    color: var(--muted); margin-bottom: 40px; line-height: 1.7;
+  }
+  .ghl-form-note {
+    background: var(--panel); border-left: 2px solid var(--copper);
+    padding: 12px 16px; font-size: 0.78rem; color: rgba(232,240,234,0.6);
+    margin-bottom: 32px; line-height: 1.6; border-radius: 0 2px 2px 0;
+  }
+  .ghl-form-container {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 30px;
+    min-height: 400px;
+  }
+  .ghl-form-container iframe {
+    width: 100%;
+    border: none;
+    background: transparent;
+  }
+  .ghl-form-loading {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  .ghl-form-loading .spinner {
+    display: inline-block;
+    width: 24px; height: 24px;
+    border: 2px solid rgba(143,174,154,0.2);
+    border-top-color: var(--copper);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    margin-bottom: 12px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* footer */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 26px 24px; text-align: center;
+    font-size: 0.66rem; color: var(--muted); letter-spacing: 1px;
+  }
 </style>
 </head>
 <body>
@@ -428,7 +327,7 @@
       <div class="meta-item"><strong>Limited</strong>Rooms Available</div>
     </div>
 
-    <a href="#order" class="hero-cta">Reserve Your Stay</a>
+    <a href="#register" class="hero-cta">Reserve Your Stay</a>
   </div>
 
   <div class="scroll-hint">Scroll</div>
@@ -495,211 +394,48 @@
   </p>
 </div>
 
-<!-- ── ORDER FORM ── -->
-<div class="order-section" id="order">
+<!-- ── GHL FORM ── -->
+<div class="ghl-form-section" id="register">
   <div class="section-label">Your Stay &amp; Dinner Selection</div>
   <h2>Reserve Your Room &amp; Dinner</h2>
-  <p class="order-intro">
+  <p class="ghl-form-intro">
     Your one-night stay and dinner are included with your attendance — complimentary, no strings attached.<br>
     Select your room and meal below so we can have everything ready for your arrival.
   </p>
 
-  <div class="order-note">
+  <div class="ghl-form-note">
     🏨 Your room will be ready upon check-in. A light starter and drink are available before the film, with dinner at Pacific Crest served afterward.
   </div>
 
-  <!-- Name -->
-  <div class="field-wrap">
-    <label class="field-label" for="guestName">Your Full Name</label>
-    <input type="text" id="guestName" placeholder="First and last name" autocomplete="name" required />
+  <div class="ghl-form-container" id="ghlFormContainer">
+    <div class="ghl-form-loading" id="formLoading">
+      <div class="spinner"></div><br>
+      Loading registration form...
+    </div>
+    <!-- 
+      GHL FORM EMBED CODE GOES HERE
+      
+      To get your form embed code:
+      1. Log into GHL: https://app.gohighlevel.com
+      2. Go to Sites → Forms
+      3. Create a new form (or use existing)
+      4. Add fields: Name, Email, Phone, Room, Starter, Drink, Dinner
+      5. Click "Embed" or "Get Code"
+      6. Copy the iframe or JavaScript embed code
+      7. Paste it below, replacing this comment
+      
+      EXAMPLE (iframe):
+      <iframe 
+        src="https://app.gohighlevel.com/v2/preview/YOUR_FORM_ID?encoded=true" 
+        style="width:100%;height:600px;border:none;"
+        loading="lazy">
+      </iframe>
+      
+      EXAMPLE (JavaScript embed):
+      <script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
+      <iframe src="https://app.gohighlevel.com/v2/preview/YOUR_FORM_ID" ...></iframe>
+    -->
   </div>
-  
-  <!-- Email -->
-  <div class="field-wrap">
-    <label class="field-label" for="guestEmail">Email Address</label>
-    <input type="email" id="guestEmail" placeholder="your@email.com" autocomplete="email" required />
-  </div>
-  
-  <!-- Phone -->
-  <div class="field-wrap">
-    <label class="field-label" for="guestPhone">Phone Number</label>
-    <input type="tel" id="guestPhone" placeholder="(360) 555-1234" autocomplete="tel" required />
-  </div>
-
-  <!-- Room -->
-  <div class="pick-head">
-    <span class="pick-title">Choose Your Room</span>
-    <span class="pick-req">Select one</span>
-  </div>
-  <div class="cards" id="rooms-cards">
-    <div class="card" id="card-r1" data-pick="room" data-id="r1">
-      <div class="card-radio"><div class="card-dot"></div></div>
-      <div class="card-name">King with Balcony<span class="tag tag-sleeps">Sleeps 2</span></div>
-      <div class="card-desc">Plush king bed, private balcony, mountain views — sleeps 2</div>
-    </div>
-    <div class="card" id="card-r2" data-pick="room" data-id="r2">
-      <div class="card-radio"><div class="card-dot"></div></div>
-      <div class="card-name">King with Balcony (Pet Friendly)<span class="tag tag-sleeps">Sleeps 2</span></div>
-      <div class="card-desc">Same comfort as King with Balcony, pet-friendly room — sleeps 2</div>
-    </div>
-    <div class="card" id="card-r3" data-pick="room" data-id="r3">
-      <div class="card-radio"><div class="card-dot"></div></div>
-      <div class="card-name">King Garden View with Balcony<span class="tag tag-sleeps">Sleeps 2</span></div>
-      <div class="card-desc">King bed, peaceful garden views, private balcony — sleeps 2</div>
-    </div>
-    <div class="card" id="card-r4" data-pick="room" data-id="r4">
-      <div class="card-radio"><div class="card-dot"></div></div>
-      <div class="card-name">Two Queens Garden View with Balcony<span class="tag tag-sleeps">Sleeps 4</span></div>
-      <div class="card-desc">Two queen beds, garden views — ideal for couples or friends, sleeps 4</div>
-    </div>
-    <div class="card" id="card-r5" data-pick="room" data-id="r5">
-      <div class="card-radio"><div class="card-dot"></div></div>
-      <div class="card-name">Two Queens Garden View (Pet Friendly)<span class="tag tag-sleeps">Sleeps 4</span></div>
-      <div class="card-desc">Two queen beds, garden views, pet-friendly — sleeps 4</div>
-    </div>
-  </div>
-  <div class="err-msg" id="err-room">Please choose a room type.</div>
-
-  <!-- Starter -->
-  <div class="section-gap"></div>
-  <div class="pick-head">
-    <span class="pick-title">Before the Film: A Starter</span>
-    <span class="pick-req">Optional · select one or skip</span>
-  </div>
-  <div class="cards" id="starter-cards">
-    <div class="card selected" id="card-skip-starter-cards" data-skip="starter-cards" style="display:flex;align-items:center;">
-      <div class="card-radio" style="position:static;transform:none;margin-right:10px;"><div class="card-dot" style="opacity:1;"></div></div>
-      <div>
-        <div class="card-name">No thanks, I'll wait</div>
-        <div class="card-desc">Skip the starter</div>
-      </div>
-    </div>
-    <div class="card" id="card-st1" data-pick="starter-cards" data-id="st1">
-      <div class="card-radio"><div class="card-dot"></div></div>
-      <div class="card-name">The Wedge</div>
-      <div class="card-desc">Bib lettuce, carrots, red onions, cherry tomatoes, Gorgonzola, lamb</div>
-    </div>
-    <div class="card" id="card-st2" data-pick="starter-cards" data-id="st2">
-      <div class="card-radio"><div class="card-dot"></div></div>
-      <div class="card-name">Classic Caesar</div>
-      <div class="card-desc">Caesar dressing, grana padano cheese, romaine lettuce, lemon wedge</div>
-    </div>
-    <div class="card" id="card-st3" data-pick="starter-cards" data-id="st3">
-      <div class="card-radio"><div class="card-dot"></div></div>
-      <div class="card-name">Mediterranean Tapas Board</div>
-      <div class="card-desc">Curated small plates — olives, cured meats, marinated vegetables, flatbread</div>
-    </div>
-    <div class="card" id="card-st4" data-pick="starter-cards" data-id="st4">
-      <div class="card-radio"><div class="card-dot"></div></div>
-      <div class="card-name">Seasonal Soup</div>
-      <div class="card-desc">Chef's daily soup, made fresh with local ingredients</div>
-    </div>
-    <div class="card" id="card-st5" data-pick="starter-cards" data-id="st5">
-      <div class="card-radio"><div class="card-dot"></div></div>
-      <div class="card-name">Crispy Calamari</div>
-      <div class="card-desc">Lightly fried calamari, lemon aioli, fresh herbs</div>
-    </div>
-  </div>
-
-  <!-- Drink -->
-  <div class="section-gap"></div>
-  <div class="pick-head">
-    <span class="pick-title">Before the Film: A Drink</span>
-    <span class="pick-req">Optional · select one or skip</span>
-  </div>
-  <div class="cards" id="drink-cards">
-    <div class="card selected" id="card-skip-drink-cards" data-skip="drink-cards" style="display:flex;align-items:center;">
-      <div class="card-radio" style="position:static;transform:none;margin-right:10px;"><div class="card-dot" style="opacity:1;"></div></div>
-      <div>
-        <div class="card-name">No thanks, I'll wait</div>
-        <div class="card-desc">Skip the drink</div>
-      </div>
-    </div>
-    <div class="card" id="card-dr1" data-pick="drink-cards" data-id="dr1">
-      <div class="card-radio"><div class="card-dot"></div></div>
-      <div class="card-name">House Red or White Wine</div>
-      <div class="card-desc">Glass of local Columbia Gorge wine, ask staff for tonight's pour</div>
-    </div>
-    <div class="card" id="card-dr2" data-pick="drink-cards" data-id="dr2">
-      <div class="card-radio"><div class="card-dot"></div></div>
-      <div class="card-name">Craft Beer</div>
-      <div class="card-desc">Local Pacific Northwest draft selection</div>
-    </div>
-    <div class="card" id="card-dr3" data-pick="drink-cards" data-id="dr3">
-      <div class="card-radio"><div class="card-dot"></div></div>
-      <div class="card-name">Handcrafted Cocktail</div>
-      <div class="card-desc">Bartender's seasonal cocktail of the evening</div>
-    </div>
-    <div class="card" id="card-dr4" data-pick="drink-cards" data-id="dr4">
-      <div class="card-radio"><div class="card-dot"></div></div>
-      <div class="card-name">Sparkling Water</div>
-      <div class="card-desc">Chilled sparkling water, lemon or lime</div>
-    </div>
-    <div class="card" id="card-dr5" data-pick="drink-cards" data-id="dr5">
-      <div class="card-radio"><div class="card-dot"></div></div>
-      <div class="card-name">Coffee or Tea</div>
-      <div class="card-desc">Freshly brewed coffee or a selection of teas</div>
-    </div>
-  </div>
-
-  <!-- Dinner -->
-  <div class="section-gap"></div>
-  <div class="pick-head">
-    <span class="pick-title">Choose Your Dinner</span>
-    <span class="pick-req">Select one</span>
-  </div>
-  <div class="cards" id="dinner-cards">
-    <div class="card" id="card-d1" data-pick="dinner" data-id="d1">
-      <div class="card-radio"><div class="card-dot"></div></div>
-      <div class="card-name">Citrus Cedar Plank Wild King Salmon</div>
-      <div class="card-desc">Signature dish, cedar plank roasted with citrus glaze</div>
-    </div>
-    <div class="card" id="card-d2" data-pick="dinner" data-id="d2">
-      <div class="card-radio"><div class="card-dot"></div></div>
-      <div class="card-name">Muscovy Duck Breast</div>
-      <div class="card-desc">Tender duck breast, prepared to highlight natural flavor</div>
-    </div>
-    <div class="card" id="card-d3" data-pick="dinner" data-id="d3">
-      <div class="card-radio"><div class="card-dot"></div></div>
-      <div class="card-name">Grilled Coho Salmon</div>
-      <div class="card-desc">Coho salmon, pilaf rice, seasonal vegetables, citrus jus</div>
-    </div>
-    <div class="card" id="card-d4" data-pick="dinner" data-id="d4">
-      <div class="card-radio"><div class="card-dot"></div></div>
-      <div class="card-name">Fish & Chips</div>
-      <div class="card-desc">Northwest classic, crispy battered fish, fries</div>
-    </div>
-    <div class="card" id="card-d5" data-pick="dinner" data-id="d5">
-      <div class="card-radio"><div class="card-dot"></div></div>
-      <div class="card-name">Mediterranean Tapas Plate</div>
-      <div class="card-desc">Curated selection of Mediterranean-inspired small plates</div>
-    </div>
-    <div class="card" id="card-d6" data-pick="dinner" data-id="d6">
-      <div class="card-radio"><div class="card-dot"></div></div>
-      <div class="card-name">Classic Caesar Salad<span class="tag tag-v">Veg</span></div>
-      <div class="card-desc">Caesar dressing, grana padano, romaine, lemon wedge</div>
-    </div>
-    <div class="card" id="card-d7" data-pick="dinner" data-id="d7">
-      <div class="card-radio"><div class="card-dot"></div></div>
-      <div class="card-name">Seasonal Vegetable Plate<span class="tag tag-v">Vegan</span></div>
-      <div class="card-desc">Chef's selection of seasonal, locally sourced vegetables</div>
-    </div>
-  </div>
-  <div class="err-msg" id="err-dinner">Please choose a dinner entrée.</div>
-
-  <div class="submit-area">
-    <button class="submit-btn" id="submitBtn">Confirm My Reservation</button>
-    <p class="submit-legal">Your selections help us prepare for your stay. Room and dinner are complimentary. By submitting, you confirm your intent to attend.</p>
-  </div>
-</div>
-
-<!-- ── SUCCESS ── -->
-<div class="success" id="successView">
-  <div class="success-ring">✓</div>
-  <h2>You're confirmed.</h2>
-  <p>Your room and dinner are reserved. We'll send you a confirmation email with check-in details and directions to Bonneville Hot Springs.</p>
-  <div class="success-card" id="successDetails"></div>
-  <p style="margin-top:24px; font-size:0.78rem; color:var(--muted);">Questions? Call us at <a href="tel:360-XXX-XXXX" style="color:var(--copper)">(360) XXX-XXXX</a></p>
 </div>
 
 <footer>
@@ -707,263 +443,15 @@
 </footer>
 
 <script>
-// ======== CONFIGURATION ========
-const CONFIG = {
-  // FORMSPREE - Email notifications (FREE, 50 submissions/month)
-  FORMSPREE_ENDPOINT: 'https://formspree.io/f/YOUR_FORM_ID',
-  
-  // GOOGLE SHEETS - Auto-save to spreadsheet
-  // You'll need to create a Google Apps Script web app
-  GOOGLE_SHEETS_ENDPOINT: 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec',
-  
-  // GHL (GoHighLevel) - Add to CRM
-  GHL_API_KEY: 'pit-aafb5832-ba83-4424-83ec-81df548404b6',
-  GHL_LOCATION_ID: 'O3yRdNIkD4jCjBGcKaSK',
-  GHL_ENDPOINT: 'https://services.leadconnectorhq.com/contacts/',
-  
-  // YOUR CONTACT INFO (for notifications)
-  HOST_EMAIL: 'info@harrisassurancegroup.com',
-  HOST_PHONE: '(360) XXX-XXXX'
-};
-
-// ======== CARD SELECTION LOGIC ========
-function initCardGroups() {
-  ['room','starter-cards','drink-cards','dinner'].forEach(group => {
-    const container = document.getElementById(group + '-cards');
-    if (!container) return;
-    const cards = container.querySelectorAll('.card');
-    cards.forEach(card => {
-      card.addEventListener('click', () => {
-        // If it's a skip card, just select it and deselect others
-        if (card.dataset.skip) {
-          cards.forEach(c => c.classList.remove('selected'));
-          card.classList.add('selected');
-          return;
-        }
-        // Normal selection: deselect skip if present, select this card
-        cards.forEach(c => {
-          if (c.dataset.skip) c.classList.remove('selected');
-          else if (c === card) c.classList.add('selected');
-          else c.classList.remove('selected');
-        });
+  // Hide loading spinner when form loads
+  document.addEventListener('DOMContentLoaded', function() {
+    const iframe = document.querySelector('#ghlFormContainer iframe');
+    if (iframe) {
+      iframe.addEventListener('load', function() {
+        document.getElementById('formLoading').style.display = 'none';
       });
-    });
+    }
   });
-}
-
-// ======== GET SELECTED VALUES ========
-function getSelectedValue(group) {
-  const container = document.getElementById(group + '-cards');
-  if (!container) return '';
-  const selected = container.querySelector('.card.selected');
-  if (!selected) return '';
-  if (selected.dataset.skip) return 'Skipped';
-  return selected.querySelector('.card-name')?.textContent?.trim() || '';
-}
-
-// ======== FORM SUBMISSION ========
-async function submitForm() {
-  const btn = document.getElementById('submitBtn');
-  const name = document.getElementById('guestName').value.trim();
-  const email = document.getElementById('guestEmail').value.trim();
-  const phone = document.getElementById('guestPhone').value.trim();
-  
-  // Validation
-  let hasError = false;
-  
-  if (!name) {
-    document.getElementById('guestName').classList.add('err');
-    hasError = true;
-  } else {
-    document.getElementById('guestName').classList.remove('err');
-  }
-  
-  if (!email || !email.includes('@')) {
-    document.getElementById('guestEmail').classList.add('err');
-    hasError = true;
-  } else {
-    document.getElementById('guestEmail').classList.remove('err');
-  }
-  
-  if (!phone) {
-    document.getElementById('guestPhone').classList.add('err');
-    hasError = true;
-  } else {
-    document.getElementById('guestPhone').classList.remove('err');
-  }
-  
-  const room = getSelectedValue('rooms');
-  if (!room || room === 'Skipped') {
-    document.getElementById('err-room').classList.add('show');
-    hasError = true;
-  } else {
-    document.getElementById('err-room').classList.remove('show');
-  }
-  
-  const dinner = getSelectedValue('dinner');
-  if (!dinner || dinner === 'Skipped') {
-    document.getElementById('err-dinner').classList.add('show');
-    hasError = true;
-  } else {
-    document.getElementById('err-dinner').classList.remove('show');
-  }
-  
-  if (hasError) {
-    btn.textContent = 'Please fix the errors above';
-    setTimeout(() => { btn.textContent = 'Confirm My Reservation'; }, 3000);
-    return;
-  }
-  
-  // Gather data
-  const formData = {
-    name: name,
-    email: email,
-    phone: phone,
-    room: room,
-    starter: getSelectedValue('starter-cards'),
-    drink: getSelectedValue('drink-cards'),
-    dinner: dinner,
-    submittedAt: new Date().toISOString(),
-    source: 'Bonneville Retreat Landing Page'
-  };
-  
-  // Loading state
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span> Processing...';
-  
-  try {
-    // Send to all three services
-    await Promise.allSettled([
-      sendToFormspree(formData),
-      sendToGoogleSheets(formData),
-      sendToGHL(formData)
-    ]);
-    
-    // Show success
-    showSuccess(formData);
-  } catch (err) {
-    console.error('Submission error:', err);
-    btn.disabled = false;
-    btn.textContent = 'Something went wrong. Try again.';
-  }
-}
-
-// ======== 1. SEND TO FORMSPREE (Email) ========
-async function sendToFormspree(data) {
-  if (CONFIG.FORMSPREE_ENDPOINT.includes('YOUR_FORM_ID')) {
-    console.log('Formspree not configured - skipping email');
-    return;
-  }
-  
-  try {
-    const response = await fetch(CONFIG.FORMSPREE_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: data.name,
-        email: data.email,
-        phone: data.phone,
-        room: data.room,
-        starter: data.starter,
-        drink: data.drink,
-        dinner: data.dinner,
-        message: `New Bonneville Retreat Registration:\n\nName: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone}\nRoom: ${data.room}\nStarter: ${data.starter}\nDrink: ${data.drink}\nDinner: ${data.dinner}`
-      })
-    });
-    if (!response.ok) throw new Error('Formspree error');
-    console.log('✓ Email sent via Formspree');
-  } catch (err) {
-    console.error('Formspree failed:', err);
-  }
-}
-
-// ======== 2. SEND TO GOOGLE SHEETS ========
-async function sendToGoogleSheets(data) {
-  if (CONFIG.GOOGLE_SHEETS_ENDPOINT.includes('YOUR_SCRIPT_ID')) {
-    console.log('Google Sheets not configured - skipping');
-    return;
-  }
-  
-  try {
-    const response = await fetch(CONFIG.GOOGLE_SHEETS_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
-    if (!response.ok) throw new Error('Google Sheets error');
-    console.log('✓ Saved to Google Sheets');
-  } catch (err) {
-    console.error('Google Sheets failed:', err);
-  }
-}
-
-// ======== 3. SEND TO GHL (CRM) ========
-async function sendToGHL(data) {
-  try {
-    const response = await fetch(CONFIG.GHL_ENDPOINT, {
-      method: 'POST',
-      headers: {
-        'Authorization': 'Bearer ' + CONFIG.GHL_API_KEY,
-        'Version': '2021-07-28',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        locationId: CONFIG.GHL_LOCATION_ID,
-        firstName: data.name.split(' ')[0] || '',
-        lastName: data.name.split(' ').slice(1).join(' ') || '',
-        email: data.email,
-        phone: data.phone,
-        tags: ['bonneville-retreat', 'retirement-everest', 'event-registration'],
-        customFields: [
-          { id: 'room_preference', value: data.room },
-          { id: 'dinner_selection', value: data.dinner },
-          { id: 'starter_selection', value: data.starter },
-          { id: 'drink_selection', value: data.drink }
-        ]
-      })
-    });
-    if (!response.ok) throw new Error('GHL error');
-    console.log('✓ Added to GHL CRM');
-  } catch (err) {
-    console.error('GHL failed:', err);
-  }
-}
-
-// ======== SUCCESS VIEW ========
-function showSuccess(data) {
-  document.getElementById('order').style.display = 'none';
-  const successView = document.getElementById('successView');
-  successView.classList.add('show');
-  
-  const details = document.getElementById('successDetails');
-  details.innerHTML = `
-    <div class="sc-row">
-      <div class="sc-label">Name</div>
-      <div class="sc-val">${data.name}</div>
-    </div>
-    <div class="sc-row">
-      <div class="sc-label">Room</div>
-      <div class="sc-val">${data.room}</div>
-    </div>
-    <div class="sc-row">
-      <div class="sc-label">Dinner</div>
-      <div class="sc-val">${data.dinner}</div>
-    </div>
-    <div class="sc-row">
-      <div class="sc-label">Email</div>
-      <div class="sc-val">${data.email}</div>
-    </div>
-  `;
-  
-  // Scroll to success
-  successView.scrollIntoView({ behavior: 'smooth' });
-}
-
-// ======== INITIALIZE ========
-document.addEventListener('DOMContentLoaded', () => {
-  initCardGroups();
-  document.getElementById('submitBtn').addEventListener('click', submitForm);
-});
 </script>
 
 </body>
