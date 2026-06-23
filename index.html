@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retirement Everest — Private Premiere & Retreat</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap');
+
+  :root {
+    --forest-deep: #0d1410;
+    --forest:      #1a2620;
+    --forest-mid:  #2d3f34;
+    --sage:        #8fae9a;
+    --sage-lt:     #e8f0ea;
+    --stone:       #c9bfa8;
+    --white:       #ffffff;
+    --panel:       #16201a;
+    --border:      #2a3a30;
+    --muted:       #6b7d72;
+    --red:         #b84c3f;
+    --copper:      #b9824f;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--forest-deep);
+    color: var(--sage-lt);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: flex-end;
+    text-align: center;
+    padding: 28px 20px 50px;
+    overflow: hidden;
+  }
+  @media (max-width: 600px) {
+    .hero { min-height: 92vh; min-height: 92svh; padding: 22px 18px 40px; }
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 30%, rgba(143,174,154,0.18) 0%, transparent 55%),
+      linear-gradient(180deg, #0d1410 0%, #16241c 30%, #1f3328 55%, #16241c 80%, #0d1410 100%);
+  }
+
+  /* layered hills/steam SVG */
+  .hero-scene { position: absolute; bottom: 0; left: 0; right: 0; height: 62%; }
+
+  .hero-content { position: relative; z-index: 2; max-width: 680px; width: 100%; }
+
+  .eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.62rem; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--sage); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px; justify-content: center;
+  }
+  .eyebrow::before, .eyebrow::after {
+    content: ''; width: 28px; height: 1px; background: rgba(143,174,154,0.4);
+    flex-shrink: 0;
+  }
+  @media (min-width: 480px) {
+    .eyebrow { font-size: 0.65rem; letter-spacing: 4px; }
+    .eyebrow::before, .eyebrow::after { width: 40px; }
+  }
+
+  .hero h1 {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(2.2rem, 7vw, 4rem);
+    font-weight: 600;
+    line-height: 1.05;
+    color: var(--white);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.5);
+  }
+  .hero h1 em {
+    display: block;
+    font-style: normal;
+    font-weight: 700;
+    color: var(--copper);
+    font-size: 0.6em;
+    letter-spacing: 3px;
+    margin-top: 4px;
+  }
+
+  .hero-sub {
+    font-size: 0.85rem; color: rgba(232,240,234,0.65);
+    margin: 14px 0 30px; line-height: 1.7; max-width: 460px;
+    margin-left: auto; margin-right: auto;
+  }
+
+  .event-meta {
+    display: inline-flex; gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 3px; overflow: hidden;
+    margin: 0 0 36px;
+    flex-wrap: wrap;
+    max-width: 100%;
+  }
+  .meta-item {
+    padding: 12px 18px;
+    border-right: 1px solid var(--border);
+    font-size: 0.68rem; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--muted);
+    flex: 1 1 auto;
+  }
+  .meta-item:last-child { border-right: none; }
+  .meta-item strong { display: block; color: var(--sage-lt); font-size: 0.85rem; letter-spacing: 0; text-transform: none; margin-bottom: 2px; font-weight: 400; }
+
+  @media (max-width: 480px) {
+    .event-meta { flex-direction: column; width: 100%; }
+    .meta-item { border-right: none; border-bottom: 1px solid var(--border); text-align: center; }
+    .meta-item:last-child { border-bottom: none; }
+  }
+
+  .hero-cta {
+    display: inline-block; padding: 16px 40px;
+    background: var(--copper); color: var(--forest-deep);
+    font-family: 'Inter', sans-serif; font-size: 0.72rem;
+    font-weight: 500; letter-spacing: 4px; text-transform: uppercase;
+    border: none; border-radius: 2px; cursor: pointer;
+    text-decoration: none; transition: background 0.2s;
+  }
+  .hero-cta:hover { background: #d49a64; }
+
+  .scroll-hint {
+    position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%);
+    font-size: 0.62rem; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--muted); z-index: 2;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+  }
+  .scroll-hint::after {
+    content: ''; width: 1px; height: 24px;
+    background: linear-gradient(to bottom, var(--muted), transparent);
+  }
+
+  /* ── ABOUT ── */
+  .about {
+    max-width: 700px; margin: 0 auto;
+    padding: 72px 24px 64px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-label {
+    font-size: 0.62rem; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--copper); margin-bottom: 18px;
+  }
+  .about h2 {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(1.7rem, 4.5vw, 2.4rem);
+    font-weight: 600; line-height: 1.25;
+    margin-bottom: 22px; color: var(--sage-lt);
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .about p {
+    font-size: 0.94rem; line-height: 1.85;
+    color: rgba(232,240,234,0.7);
+    margin-bottom: 16px;
+  }
+  .about p:last-child { margin-bottom: 0; }
+  .about strong { color: var(--sage-lt); font-weight: 500; }
+
+  /* ── WHAT TO EXPECT ── */
+  .expect {
+    max-width: 900px; margin: 0 auto;
+    padding: 64px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .expect .section-label { text-align: center; margin-bottom: 44px; }
+
+  .expect-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+  }
+  @media(max-width: 760px) { .expect-grid { grid-template-columns: 1fr 1fr; } }
+  @media(max-width: 480px) { .expect-grid { grid-template-columns: 1fr; } }
+
+  .expect-item {
+    background: var(--panel);
+    padding: 28px 22px;
+    position: relative;
+  }
+  .expect-num {
+    font-family: 'Oswald', sans-serif;
+    font-size: 2.6rem; font-weight: 700;
+    color: rgba(143,174,154,0.15);
+    line-height: 1; margin-bottom: 10px;
+  }
+  .expect-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.05rem; font-weight: 500;
+    color: var(--sage-lt); margin-bottom: 8px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .expect-desc {
+    font-size: 0.78rem; color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    text-align: center; padding: 52px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .divider-quote {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(1.15rem, 3vw, 1.7rem);
+    font-weight: 400;
+    color: rgba(232,240,234,0.5);
+    max-width: 600px; margin: 0 auto;
+    line-height: 1.5;
+  }
+  .divider-quote span { color: var(--copper); font-weight: 600; }
+
+  /* ── ORDER FORM ── */
+  .order-section {
+    max-width: 720px; margin: 0 auto;
+    padding: 64px 24px 80px;
+  }
+  .order-section .section-label { text-align: center; margin-bottom: 8px; }
+  .order-section h2 {
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(1.5rem, 3.8vw, 2rem);
+    text-align: center; margin-bottom: 10px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .order-intro {
+    text-align: center; font-size: 0.83rem;
+    color: var(--muted); margin-bottom: 40px; line-height: 1.7;
+  }
+  .order-note {
+    background: var(--panel); border-left: 2px solid var(--copper);
+    padding: 12px 16px; font-size: 0.78rem; color: rgba(232,240,234,0.6);
+    margin-bottom: 32px; line-height: 1.6; border-radius: 0 2px 2px 0;
+  }
+
+  /* name field */
+  .field-wrap { margin-bottom: 32px; }
+  .field-label {
+    display: block; font-size: 0.62rem;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--copper); margin-bottom: 10px;
+  }
+  input[type="text"] {
+    width: 100%; padding: 14px 16px;
+    background: var(--panel); border: 1px solid var(--border);
+    color: var(--sage-lt); font-family: 'Inter', sans-serif;
+    font-size: 0.95rem; font-weight: 300; border-radius: 2px;
+    transition: border-color 0.2s;
+  }
+  input[type="text"]:focus { outline: none; border-color: var(--copper); }
+  input[type="text"].err { border-color: var(--red); }
+
+  /* pick label */
+  .pick-head {
+    display: flex; align-items: baseline;
+    justify-content: space-between; margin-bottom: 14px;
+  }
+  .pick-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.25rem; color: var(--sage-lt);
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .pick-req {
+    font-size: 0.62rem; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--muted);
+  }
+
+  /* cards */
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+  @media(max-width: 520px) { .cards { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 2px; padding: 14px 16px 14px 44px;
+    cursor: pointer; position: relative;
+    transition: border-color 0.15s, background 0.15s;
+    user-select: none;
+  }
+  .card:hover { border-color: rgba(143,174,154,0.4); }
+  .card.selected { border-color: var(--copper); background: #1d1812; }
+
+  .card-radio {
+    position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
+    width: 16px; height: 16px; border-radius: 50%;
+    border: 1.5px solid var(--muted); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.15s;
+  }
+  .card.selected .card-radio { border-color: var(--copper); }
+  .card-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--copper); opacity: 0; transition: opacity 0.15s;
+  }
+  .card.selected .card-dot { opacity: 1; }
+
+  .card-name { font-size: 0.85rem; font-weight: 400; color: var(--sage-lt); line-height: 1.3; }
+  .card-desc { font-size: 0.72rem; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+
+  .tag {
+    display: inline-block; font-size: 0.58rem; letter-spacing: 1px;
+    text-transform: uppercase; padding: 1px 5px; border-radius: 2px;
+    margin-left: 5px; vertical-align: middle;
+  }
+  .tag-v { background: #132516; color: #7fc47f; border: 1px solid #1f3a22; }
+  .tag-s { background: #2a1a0a; color: #d4883a; border: 1px solid #3a2a1a; }
+  .tag-sleeps { background: #16201a; color: var(--sage); border: 1px solid var(--border); }
+
+  .err-msg { font-size: 0.75rem; color: var(--red); margin-top: 6px; display: none; }
+  .err-msg.show { display: block; }
+
+  .section-gap { margin-top: 32px; }
+
+  /* submit */
+  .submit-area { margin-top: 40px; text-align: center; }
+  .submit-btn {
+    width: 100%; padding: 18px;
+    background: var(--copper); color: var(--forest-deep);
+    font-family: 'Inter', sans-serif; font-size: 0.72rem;
+    font-weight: 500; letter-spacing: 4px; text-transform: uppercase;
+    border: none; border-radius: 2px; cursor: pointer;
+    transition: background 0.2s;
+  }
+  .submit-btn:hover { background: #d49a64; }
+  .submit-btn:disabled { background: #1a2820; color: var(--muted); cursor: not-allowed; }
+  .submit-legal {
+    font-size: 0.68rem; color: var(--muted); margin-top: 14px; line-height: 1.6;
+  }
+
+  /* spinner */
+  .spinner {
+    display: inline-block; width: 14px; height: 14px;
+    border: 2px solid rgba(0,0,0,0.25); border-top-color: #000;
+    border-radius: 50%; animation: spin 0.7s linear infinite;
+    vertical-align: middle; margin-right: 8px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── SUCCESS ── */
+  .success {
+    display: none; min-height: 80vh; min-height: 80svh;
+    align-items: center; justify-content: center;
+    flex-direction: column; text-align: center;
+    padding: 70px 24px;
+  }
+  .success.show { display: flex; }
+  .success-ring {
+    width: 68px; height: 68px; border-radius: 50%;
+    border: 1px solid var(--copper);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; margin-bottom: 26px;
+    color: var(--copper);
+  }
+  .success h2 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.9rem; margin-bottom: 12px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .success p { font-size: 0.86rem; color: var(--muted); line-height: 1.8; max-width: 380px; }
+  .success-card {
+    margin-top: 32px; background: var(--panel);
+    border: 1px solid var(--border); border-radius: 3px;
+    padding: 22px 30px; text-align: left; min-width: 280px;
+  }
+  .sc-row { margin-bottom: 12px; }
+  .sc-row:last-child { margin-bottom: 0; }
+  .sc-label { font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+  .sc-val { font-size: 0.86rem; color: var(--sage-lt); }
+
+  /* footer */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 26px 24px; text-align: center;
+    font-size: 0.66rem; color: var(--muted); letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-bg"></div>
+
+  <div class="hero-content">
+    <div class="eyebrow">From Award-Winning Film Producers Brett Kitchen &amp; Ethan Kap</div>
+    <h1>Retirement<em>Everest</em></h1>
+    <p class="hero-sub">A private film screening, dinner, and overnight retreat<br>at Bonneville Hot Springs Resort &amp; Spa.</p>
+
+    <div class="event-meta">
+      <div class="meta-item"><strong>Bonneville Hot Springs</strong>Columbia River Gorge, WA</div>
+      <div class="meta-item"><strong>Complimentary</strong>1-Night Stay + Dinner</div>
+      <div class="meta-item"><strong>Limited</strong>Rooms Available</div>
+    </div>
+
+    <a href="#order" class="hero-cta">Reserve Your Stay</a>
+  </div>
+
+  <div class="scroll-hint">Scroll</div>
+</div>
+
+<!-- ── ABOUT ── -->
+<div class="about">
+  <div class="section-label">About the Retreat</div>
+  <h2>This is not a seminar.<br>It's a private retreat.</h2>
+  <p>
+    You've been personally invited to a private screening of <strong>Retirement Everest</strong> —
+    a powerful documentary exploring the financial risks most Americans face heading into retirement,
+    paired with an overnight stay at Bonneville Hot Springs Resort &amp; Spa in the Columbia River Gorge.
+  </p>
+  <p>
+    Soak in centuries-old mineral hot springs, enjoy a complimentary dinner at the resort's
+    Pacific Crest restaurant, and watch the film in a relaxed, private setting — all on us.
+    No pressure, no pitch. Just an experience worth having.
+  </p>
+</div>
+
+<!-- ── WHAT TO EXPECT ── -->
+<div class="expect">
+  <div class="section-label">What to Expect</div>
+  <div class="expect-grid">
+    <div class="expect-item">
+      <div class="expect-num">01</div>
+      <div class="expect-title">Arrive &amp; Soak</div>
+      <div class="expect-desc">Check in to your complimentary room, unwind in the resort's mineral-fed hot springs, and enjoy a light starter and drink before the film.</div>
+    </div>
+    <div class="expect-item">
+      <div class="expect-num">02</div>
+      <div class="expect-title">Watch the Film</div>
+      <div class="expect-desc">Retirement Everest screens in a private, relaxed setting — real stories, real clarity.</div>
+    </div>
+    <div class="expect-item">
+      <div class="expect-num">03</div>
+      <div class="expect-title">Dinner</div>
+      <div class="expect-desc">Afterward, enjoy a full dinner at Pacific Crest, the resort's restaurant — your selections prepared and ready.</div>
+    </div>
+    <div class="expect-item">
+      <div class="expect-num">04</div>
+      <div class="expect-title">Rest &amp; Reflect</div>
+      <div class="expect-desc">Spend the night at the resort. Wake up to the Gorge at your own pace — no early checkout pressure.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PULL QUOTE ── -->
+<div class="divider">
+  <div class="divider-quote">
+    "The biggest financial risks in retirement aren't the ones most people are <span>preparing for.</span>"
+  </div>
+</div>
+
+<!-- ── ORDER FORM ── -->
+<div class="order-section" id="order">
+  <div class="section-label">Your Stay &amp; Dinner Selection</div>
+  <h2>Reserve Your Room &amp; Dinner</h2>
+  <p class="order-intro">
+    Your one-night stay and dinner are included with your attendance — complimentary, no strings attached.<br>
+    Select your room and meal below so we can have everything ready for your arrival.
+  </p>
+
+  <div class="order-note">
+    🏨 Your room will be ready upon check-in. A light starter and drink are available before the film, with dinner at Pacific Crest served afterward.
+  </div>
+
+  <!-- Name -->
+  <div class="field-wrap">
+    <label class="field-label" for="guestName">Your Full Name</label>
+    <input type="text" id="guestName" placeholder="First and last name" autocomplete="name" />
+  </div>
+
+  <!-- Room -->
+  <div class="pick-head">
+    <span class="pick-title">Choose Your Room</span>
+    <span class="pick-req">Select one</span>
+  </div>
+  <div class="cards" id="rooms-cards">
+    <div class="card" id="card-r1" data-pick="room" data-id="r1">
+      <div class="card-radio"><div class="card-dot"></div></div>
+      <div class="card-name">King with Balcony<span class="tag tag-sleeps">Sleeps 2</span></div>
+      <div class="card-desc">Plush king bed, private balcony, mountain views — sleeps 2</div>
+    </div>
+    <div class="card" id="card-r2" data-pick="room" data-id="r2">
+      <div class="card-radio"><div class="card-dot"></div></div>
+      <div class="card-name">King with Balcony (Pet Friendly)<span class="tag tag-sleeps">Sleeps 2</span></div>
+      <div class="card-desc">Same comfort as King with Balcony, pet-friendly room — sleeps 2</div>
+    </div>
+    <div class="card" id="card-r3" data-pick="room" data-id="r3">
+      <div class="card-radio"><div class="card-dot"></div></div>
+      <div class="card-name">King Garden View with Balcony<span class="tag tag-sleeps">Sleeps 2</span></div>
+      <div class="card-desc">King bed, peaceful garden views, private balcony — sleeps 2</div>
+    </div>
+    <div class="card" id="card-r4" data-pick="room" data-id="r4">
+      <div class="card-radio"><div class="card-dot"></div></div>
+      <div class="card-name">Two Queens Garden View with Balcony<span class="tag tag-sleeps">Sleeps 4</span></div>
+      <div class="card-desc">Two queen beds, garden views — ideal for couples or friends, sleeps 4</div>
+    </div>
+    <div class="card" id="card-r5" data-pick="room" data-id="r5">
+      <div class="card-radio"><div class="card-dot"></div></div>
+      <div class="card-name">Two Queens Garden View (Pet Friendly)<span class="tag tag-sleeps">Sleeps 4</span></div>
+      <div class="card-desc">Two queen beds, garden views, pet-friendly — sleeps 4</div>
+    </div>
+  </div>
+  <div class="err-msg" id="err-room">Please choose a room type.</div>
+
+  <!-- Starter -->
+  <div class="section-gap"></div>
+  <div class="pick-head">
+    <span class="pick-title">Before the Film: A Starter</span>
+    <span class="pick-req">Optional · select one or skip</span>
+  </div>
+  <div class="cards" id="starter-cards">
+    <div class="card selected" id="card-skip-starter-cards" data-skip="starter-cards" style="display:flex;align-items:center;">
+      <div class="card-radio" style="position:static;transform:none;margin-right:10px;"><div class="card-dot" style="opacity:1;"></div></div>
+      <div>
+        <div class="card-name">No thanks, I'll wait</div>
+        <div class="card-desc">Skip the starter</div>
+      </div>
+    </div>
+    <div class="card" id="card-st1" data-pick="starter-cards" data-id="st1">
+      <div class="card-radio"><div class="card-dot"></div></div>
+      <div class="card-name">The Wedge</div>
+      <div class="card-desc">Bib lettuce, carrots, red onions, cherry tomatoes, Gorgonzola, lamb</div>
+    </div>
+    <div class="card" id="card-st2" data-pick="starter-cards" data-id="st2">
+      <div class="card-radio"><div class="card-dot"></div></div>
+      <div class="card-name">Classic Caesar</div>
+      <div class="card-desc">Caesar dressing, grana padano cheese, romaine lettuce, lemon wedge</div>
+    </div>
+    <div class="card" id="card-st3" data-pick="starter-cards" data-id="st3">
+      <div class="card-radio"><div class="card-dot"></div></div>
+      <div class="card-name">Mediterranean Tapas Board</div>
+      <div class="card-desc">Curated small plates — olives, cured meats, marinated vegetables, flatbread</div>
+    </div>
+    <div class="card" id="card-st4" data-pick="starter-cards" data-id="st4">
+      <div class="card-radio"><div class="card-dot"></div></div>
+      <div class="card-name">Seasonal Soup</div>
+      <div class="card-desc">Chef's daily soup, made fresh with local ingredients</div>
+    </div>
+    <div class="card" id="card-st5" data-pick="starter-cards" data-id="st5">
+      <div class="card-radio"><div class="card-dot"></div></div>
+      <div class="card-name">Crispy Calamari</div>
+      <div class="card-desc">Lightly fried calamari, lemon aioli, fresh herbs</div>
+    </div>
+  </div>
+
+  <!-- Drink -->
+  <div class="section-gap"></div>
+  <div class="pick-head">
+    <span class="pick-title">Before the Film: A Drink</span>
+    <span class="pick-req">Optional · select one or skip</span>
+  </div>
+  <div class="cards" id="drink-cards">
+    <div class="card selected" id="card-skip-drink-cards" data-skip="drink-cards" style="display:flex;align-items:center;">
+      <div class="card-radio" style="position:static;transform:none;margin-right:10px;"><div class="card-dot" style="opacity:1;"></div></div>
+      <div>
+        <div class="card-name">No thanks, I'll wait</div>
+        <div class="card-desc">Skip the drink</div>
+      </div>
+    </div>
+    <div class="card" id="card-dr1" data-pick="drink-cards" data-id="dr1">
+      <div class="card-radio"><div class="card-dot"></div></div>
+      <div class="card-name">House Red or White Wine</div>
+      <div class="card-desc">Glass of local Columbia Gorge wine, ask staff for tonight's pour</div>
+    </div>
+    <div class="card" id="card-dr2" data-pick="drink-cards" data-id="dr2">
+      <div class="card-radio"><div class="card-dot"></div></div>
+      <div class="card-name">Craft Beer</div>
+      <div class="card-desc">Local Pacific Northwest draft selection</div>
+    </div>
+    <div class="card" id="card-dr3" data-pick="drink-cards" data-id="dr3">
+      <div class="card-radio"><div class="card-dot"></div></div>
+      <div class="card-name">Handcrafted Cocktail</div>
+      <div class="card-desc">Bartender's seasonal cocktail of the evening</div>
+    </div>
+    <div class="card" id="card-dr4" data-pick="drink-cards" data-id="dr4">
+      <div class="card-radio"><div class="card-dot"></div></div>
+      <div class="card-name">Sparkling Water</div>
+      <div class="card-desc">Chilled sparkling water, lemon or lime</div>
+    </div>
+    <div class="card" id="card-dr5" data-pick="drink-cards" data-id="dr5">
+      <div class="card-radio"><div class="card-dot"></div></div>
+      <div class="card-name">Coffee or Tea</div>
+      <div class="card-desc">Freshly brewed coffee or a selection of teas</div>
+    </div>
+  </div>
+
+  <!-- Dinner -->
+  <div class="section-gap"></div>
+  <div class="pick-head">
+    <span class="pick-title">Choose Your Dinner</span>
+    <span class="pick-req">Select one</span>
+  </div>
+  <div class="cards" id="dinner-cards">
+    <div class="card" id="card-d1" data-pick="dinner" data-id="d1">
+      <div class="card-radio"><div class="card-dot"></div></div>
+      <div class="card-name">Citrus Cedar Plank Wild King Salmon</div>
+      <div class="card-desc">Signature dish, cedar plank roasted with citrus glaze</div>
+    </div>
+    <div class="card" id="card-d2" data-pick="dinner" data-id="d2">
+      <div class="card-radio"><div class="card-dot"></div></div>
+      <div class="card-name">Muscovy Duck Breast</div>
+      <div class="card-desc">Tender duck breast, prepared to highlight natural flavor</div>
+    </div>
+    <div class="card" id="card-d3" data-pick="dinner" data-id="d3">
+      <div class="card-radio"><div class="card-dot"></div></div>
+      <div class="card-name">Grilled Coho Salmon</div>
+      <div class="card-desc">Coho salmon, pilaf rice, seasonal vegetables, citrus jus</div>
+    </div>
+    <div class="card" id="card-d4" data-pick="dinner" data-id="d4">
+      <div class="card-radio"><div class="card-dot"></div></div>
+      <div class="card-name">Fish & Chips</div>
+      <div class="card-desc">Northwest classic, crispy battered fish, fries</div>
+    </div>
+    <div class="card" id="card-d5" data-pick="dinner" data-id="d5">
+      <div class="card-radio"><div class="card-dot"></div></div>
+      <div class="card-name">Mediterranean Tapas Plate</div>
+      <div class="card-desc">Curated selection of Mediterranean-inspired small plates</div>
+    </div>
+    <div class="card" id="card-d6" data-pick="dinner" data-id="d6">
+      <div class="card-radio"><div class="card-dot"></div></div>
+      <div class="card-name">Classic Caesar Salad<span class="tag tag-v">Veg</span></div>
+      <div class="card-desc">Caesar dressing, grana padano, romaine, lemon wedge</div>
+    </div>
+    <div class="card" id="card-d7" data-pick="dinner" data-id="d7">
+      <div class="card-radio"><div class="card-dot"></div></div>
+      <div class="card-name">Seasonal Vegetable Plate<span class="tag tag-v">Vegan</span></div>
+      <div class="card-desc">Chef's selection of seasonal, locally sourced vegetables</div>
+    </div>
+  </div>
+  <div class="err-msg" id="err-dinner">Please choose a dinner entrée.</div>
+
+  <div class="submit-area">
+    <button class="submit-btn" id="submitBtn">Confirm My Reservation</button>
+    <p class="submit-legal">Your selections help us prepare for your stay. Room and dinner are complimentary. By submitting, you confirm your intent to attend.</p>
+  </div>
+</div>
+
+<!-- ── SUCCESS ── -->
+<div class="success" id="success">
+  <div class="success-ring">✓</div>
+  <h2>You're confirmed.</h2>
+  <p>We look forward to hosting you at Bonneville Hot Springs. A reminder with arrival details will follow closer to the date.</p>
+  <div class="success-card" id="success-card"></div>
+</div>
+
+<footer>
+  Retirement Everest · Private Retreat Series · Bonneville Hot Springs Resort &amp; Spa · North Bonneville, WA
+</footer>
+
+<script>
+const STORAGE_KEY = 'bonneville_orders_v1';
+
+const STARTERS = [
+  { id:'st1', name:'The Wedge', desc:'Bib lettuce, carrots, red onions, cherry tomatoes, Gorgonzola, lamb' },
+  { id:'st2', name:'Classic Caesar', desc:'Caesar dressing, grana padano cheese, romaine lettuce, lemon wedge' },
+  { id:'st3', name:'Mediterranean Tapas Board', desc:'Curated small plates — olives, cured meats, marinated vegetables, flatbread' },
+  { id:'st4', name:'Seasonal Soup', desc:"Chef's daily soup, made fresh with local ingredients" },
+  { id:'st5', name:'Crispy Calamari', desc:'Lightly fried calamari, lemon aioli, fresh herbs' },
+];
+
+const DRINKS = [
+  { id:'dr1', name:'House Red or White Wine', desc:'Glass of local Columbia Gorge wine, ask staff for tonight\'s pour' },
+  { id:'dr2', name:'Craft Beer', desc:'Local Pacific Northwest draft selection' },
+  { id:'dr3', name:'Handcrafted Cocktail', desc:'Bartender\'s seasonal cocktail of the evening' },
+  { id:'dr4', name:'Sparkling Water', desc:'Chilled sparkling water, lemon or lime' },
+  { id:'dr5', name:'Coffee or Tea', desc:'Freshly brewed coffee or a selection of teas' },
+];
+
+const ROOMS = [
+  { id:'r1', name:'King with Balcony', desc:'Plush king bed, private balcony, mountain views — sleeps 2', occupancy:'single', sleeps:2 },
+  { id:'r2', name:'King with Balcony (Pet Friendly)', desc:'Same comfort as King with Balcony, pet-friendly room — sleeps 2', occupancy:'single', sleeps:2 },
+  { id:'r3', name:'King Garden View with Balcony', desc:'King bed, peaceful garden views, private balcony — sleeps 2', occupancy:'single', sleeps:2 },
+  { id:'r4', name:'Two Queens Garden View with Balcony', desc:'Two queen beds, garden views — ideal for couples or friends, sleeps 4', occupancy:'double', sleeps:4 },
+  { id:'r5', name:'Two Queens Garden View (Pet Friendly)', desc:'Two queen beds, garden views, pet-friendly — sleeps 4', occupancy:'double', sleeps:4 },
+];
+
+const DINNER = [
+  { id:'d1', name:'Citrus Cedar Plank Wild King Salmon', desc:'Signature dish, cedar plank roasted with citrus glaze', price:36.00 },
+  { id:'d2', name:'Muscovy Duck Breast', desc:'Tender duck breast, prepared to highlight natural flavor', price:45.00 },
+  { id:'d3', name:'Grilled Coho Salmon', desc:'Coho salmon, pilaf rice, seasonal vegetables, citrus jus', price:28.00 },
+  { id:'d4', name:'Fish & Chips', desc:'Northwest classic, crispy battered fish, fries', price:23.00 },
+  { id:'d5', name:'Mediterranean Tapas Plate', desc:'Curated selection of Mediterranean-inspired small plates', price:24.00 },
+  { id:'d6', name:'Classic Caesar Salad', desc:'Caesar dressing, grana padano, romaine, lemon wedge', price:14.00, veg:true },
+  { id:'d7', name:'Seasonal Vegetable Plate', desc:'Chef\'s selection of seasonal, locally sourced vegetables', price:20.00, vegan:true },
+];
+
+let selRoom = null, selDinner = null, selStarter = null, selDrink = null;
+
+function renderSkippableCards(containerId, items, skipLabel, skipDesc) {
+  const skipCard = `
+    <div class="card selected" id="card-skip-${containerId}" data-skip="${containerId}" style="display:flex;align-items:center;">
+      <div class="card-radio" style="position:static;transform:none;margin-right:10px;"><div class="card-dot" style="opacity:1;"></div></div>
+      <div>
+        <div class="card-name">${skipLabel}</div>
+        <div class="card-desc">${skipDesc}</div>
+      </div>
+    </div>`;
+  const itemCards = items.map(item => `
+    <div class="card" id="card-${item.id}" data-pick="${containerId}" data-id="${item.id}">
+      <div class="card-radio"><div class="card-dot"></div></div>
+      <div class="card-name">${item.name}</div>
+      <div class="card-desc">${item.desc}</div>
+    </div>
+  `).join('');
+  document.getElementById(containerId).innerHTML = skipCard + itemCards;
+}
+
+function renderStarterCards() {
+  renderSkippableCards('starter-cards', STARTERS, "No thanks, I'll wait", 'Skip the starter');
+}
+function renderDrinkCards() {
+  renderSkippableCards('drink-cards', DRINKS, "No thanks, I'll wait", 'Skip the drink');
+}
+
+function selectSkippable(containerId, id) {
+  const prevId = (containerId === 'starter-cards' ? selStarter : selDrink) || ('skip-' + containerId);
+  document.getElementById('card-' + prevId)?.classList.remove('selected');
+  const newId = id || ('skip-' + containerId);
+  if (containerId === 'starter-cards') selStarter = id; else selDrink = id;
+  document.getElementById('card-' + newId)?.classList.add('selected');
+}
+
+document.getElementById('starter-cards').addEventListener('click', function(e) {
+  const skip = e.target.closest('[data-skip]');
+  const pick = e.target.closest('[data-pick="starter-cards"]');
+  if (skip) selectSkippable('starter-cards', null);
+  else if (pick) selectSkippable('starter-cards', pick.getAttribute('data-id'));
+});
+
+document.getElementById('drink-cards').addEventListener('click', function(e) {
+  const skip = e.target.closest('[data-skip]');
+  const pick = e.target.closest('[data-pick="drink-cards"]');
+  if (skip) selectSkippable('drink-cards', null);
+  else if (pick) selectSkippable('drink-cards', pick.getAttribute('data-id'));
+});
+
+function renderRoomCards() {
+  document.getElementById('rooms-cards').innerHTML = ROOMS.map(item => `
+    <div class="card" id="card-${item.id}" data-pick="room" data-id="${item.id}">
+      <div class="card-radio"><div class="card-dot"></div></div>
+      <div class="card-name">
+        ${item.name}
+        <span class="tag tag-sleeps">Sleeps ${item.sleeps}</span>
+      </div>
+      <div class="card-desc">${item.desc}</div>
+    </div>
+  `).join('');
+}
+
+function renderDinnerCards() {
+  document.getElementById('dinner-cards').innerHTML = DINNER.map(item => `
+    <div class="card" id="card-${item.id}" data-pick="dinner" data-id="${item.id}">
+      <div class="card-radio"><div class="card-dot"></div></div>
+      <div class="card-name">
+        ${item.name}
+        ${item.vegan ? '<span class="tag tag-v">Vegan</span>' : ''}
+        ${item.veg && !item.vegan ? '<span class="tag tag-v">Veg</span>' : ''}
+      </div>
+      <div class="card-desc">${item.desc}</div>
+    </div>
+  `).join('');
+}
+
+function selectCard(type, id) {
+  if (type === 'room') {
+    if (selRoom) document.getElementById('card-' + selRoom)?.classList.remove('selected');
+    selRoom = id;
+    document.getElementById('err-room').classList.remove('show');
+  } else {
+    if (selDinner) document.getElementById('card-' + selDinner)?.classList.remove('selected');
+    selDinner = id;
+    document.getElementById('err-dinner').classList.remove('show');
+  }
+  document.getElementById('card-' + id).classList.add('selected');
+}
+
+document.getElementById('rooms-cards').addEventListener('click', function(e) {
+  const card = e.target.closest('[data-pick="room"]');
+  if (!card) return;
+  selectCard('room', card.getAttribute('data-id'));
+});
+
+document.getElementById('dinner-cards').addEventListener('click', function(e) {
+  const card = e.target.closest('[data-pick="dinner"]');
+  if (!card) return;
+  selectCard('dinner', card.getAttribute('data-id'));
+});
+
+document.getElementById('submitBtn').addEventListener('click', function() {
+  const name = document.getElementById('guestName').value.trim();
+  let ok = true;
+  document.getElementById('guestName').classList.toggle('err', !name);
+  if (!selRoom)   { document.getElementById('err-room').classList.add('show');   ok = false; }
+  if (!selDinner) { document.getElementById('err-dinner').classList.add('show'); ok = false; }
+  if (!name || !ok) return;
+
+  const btn = this;
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Confirming…';
+
+  const room = ROOMS.find(r => r.id === selRoom);
+  const dinner = DINNER.find(d => d.id === selDinner);
+  const starter = selStarter ? STARTERS.find(s => s.id === selStarter) : null;
+  const drink = selDrink ? DRINKS.find(d => d.id === selDrink) : null;
+
+  const order = {
+    id: Date.now(), name,
+    room: room.name, roomId: room.id, occupancy: room.occupancy,
+    dinner: dinner.name, dinnerId: dinner.id, dinnerPrice: dinner.price,
+    starter: starter ? starter.name : null, starterId: starter ? starter.id : null,
+    drink: drink ? drink.name : null, drinkId: drink ? drink.id : null,
+    ts: new Date().toISOString()
+  };
+
+  const all = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  all.push(order);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+
+  document.querySelector('.order-section').style.display = 'none';
+  document.getElementById('success').classList.add('show');
+  document.getElementById('success-card').innerHTML = `
+    <div class="sc-row"><div class="sc-label">Name</div><div class="sc-val">${name}</div></div>
+    <div class="sc-row"><div class="sc-label">Room</div><div class="sc-val">${room.name}</div></div>
+    ${starter ? `<div class="sc-row"><div class="sc-label">Starter</div><div class="sc-val">${starter.name}</div></div>` : ''}
+    ${drink ? `<div class="sc-row"><div class="sc-label">Drink</div><div class="sc-val">${drink.name}</div></div>` : ''}
+    <div class="sc-row" style="margin-bottom:0"><div class="sc-label">Dinner</div><div class="sc-val">${dinner.name}</div></div>
+  `;
+});
+
+// Cards are pre-rendered in HTML; JS only handles interactivity.
+</script>
+</body>
+</html>

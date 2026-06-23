@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bonneville Retreat – Event Cost Simulation</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+  :root {
+    --forest-deep:#0d1410; --forest:#16201a; --panel:#1a2620; --panel2:#1e2c24;
+    --border:#2a3a30; --copper:#b9824f; --copper-lt:#d49a64; --sage:#8fae9a; --sage-lt:#e8f0ea;
+    --muted:#6b7d72; --green:#4caf7d; --red:#c0392b; --amber:#d4883a;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--forest-deep); color:var(--sage-lt); font-family:'Inter',sans-serif; font-weight:300; }
+
+  header { background:var(--forest); border-bottom:1px solid var(--border); padding:28px 32px; display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
+  header h1 { font-family:'Oswald',sans-serif; font-size:1.3rem; color:var(--copper); text-transform:uppercase; }
+  .badge { font-size:0.6rem; letter-spacing:2px; text-transform:uppercase; background:rgba(185,130,79,0.1); color:var(--copper); border:1px solid rgba(185,130,79,0.2); padding:4px 10px; border-radius:20px; }
+  .note { font-size:0.74rem; color:var(--muted); margin-left:auto; font-style:italic; }
+
+  .wrap { max-width:1000px; margin:0 auto; padding:36px 24px 80px; }
+
+  .tabs { display:flex; gap:0; margin-bottom:32px; border-bottom:1px solid var(--border); }
+  .tab { padding:10px 22px; font-size:0.78rem; letter-spacing:1.5px; text-transform:uppercase; background:none; border:none; color:var(--muted); cursor:pointer; font-family:'Inter',sans-serif; border-bottom:2px solid transparent; transition:all 0.2s; margin-bottom:-1px; }
+  .tab.active { color:var(--copper); border-bottom-color:var(--copper); }
+  .scenario { display:none; }
+  .scenario.active { display:block; }
+
+  .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:28px; }
+  @media(max-width:640px){ .stats{ grid-template-columns:1fr 1fr; } }
+  .stat { background:var(--panel); border:1px solid var(--border); border-radius:4px; padding:18px 20px; }
+  .stat-label { font-size:0.6rem; letter-spacing:2.5px; text-transform:uppercase; color:var(--muted); margin-bottom:8px; }
+  .stat-val { font-size:1.55rem; font-weight:600; color:var(--sage-lt); line-height:1; }
+  .stat-val.copper { color:var(--copper); }
+  .stat-sub { font-size:0.7rem; color:var(--muted); margin-top:5px; }
+
+  .range-card { background:var(--panel); border:1px solid var(--border); border-radius:4px; padding:22px 24px; margin-bottom:22px; }
+  .range-card h3 { font-size:0.65rem; letter-spacing:3px; text-transform:uppercase; color:var(--copper); margin-bottom:20px; }
+  .range-row { margin-bottom:20px; }
+  .range-top { display:flex; justify-content:space-between; font-size:0.8rem; margin-bottom:8px; }
+  .range-scenario { color:var(--sage-lt); font-weight:500; }
+  .range-track { position:relative; height:8px; background:var(--border); border-radius:4px; }
+  .range-label-row { display:flex; justify-content:space-between; margin-top:5px; font-size:0.68rem; color:var(--muted); }
+
+  .breakdown { background:var(--panel); border:1px solid var(--border); border-radius:4px; overflow:hidden; margin-bottom:22px; }
+  .breakdown-head { display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; background:#111; padding:10px 18px; }
+  .breakdown-head span { font-size:0.6rem; letter-spacing:2px; text-transform:uppercase; color:var(--muted); }
+  .breakdown-row { display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; padding:12px 18px; border-top:1px solid var(--border); align-items:center; }
+  .breakdown-row:hover { background:#1d2c24; }
+  .breakdown-row span { font-size:0.81rem; }
+  .br-label { color:var(--sage-lt); font-weight:500; }
+  .br-muted { color:var(--muted); }
+  .br-copper { color:var(--copper); font-weight:600; }
+  .br-green { color:var(--green); }
+  .br-amber { color:var(--amber); }
+
+  .pp-card { background:var(--panel); border:1px solid var(--border); border-radius:4px; padding:22px 24px; margin-bottom:22px; }
+  .pp-card h3 { font-size:0.65rem; letter-spacing:3px; text-transform:uppercase; color:var(--copper); margin-bottom:18px; }
+  .pp-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  @media(max-width:500px){ .pp-grid{ grid-template-columns:1fr; } }
+  .pp-box { background:#111; border:1px solid var(--border); border-radius:4px; padding:14px 16px; text-align:center; }
+  .pp-name { font-size:0.62rem; color:var(--muted); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:8px; }
+  .pp-val { font-size:1.25rem; font-weight:600; }
+  .pp-sub { font-size:0.68rem; color:var(--muted); margin-top:4px; }
+
+  .planning { background:#1a1408; border:1px solid rgba(185,130,79,0.2); border-radius:4px; padding:20px 22px; margin-bottom:22px; }
+  .planning h3 { font-size:0.65rem; letter-spacing:3px; text-transform:uppercase; color:var(--copper); margin-bottom:14px; }
+  .planning ul { padding-left:18px; }
+  .planning li { font-size:0.83rem; color:var(--sage-lt); line-height:1.7; margin-bottom:4px; }
+  .planning li strong { color:var(--copper-lt); }
+
+  .assumption-note { background:#1a1408; border:1px solid rgba(185,130,79,0.2); border-radius:4px; padding:12px 18px; margin-bottom:28px; font-size:0.8rem; color:var(--copper-lt); line-height:1.6; }
+
+  .disclaimer { font-size:0.72rem; color:var(--muted); font-style:italic; text-align:center; margin-top:8px; }
+  .print-btn { float:right; padding:8px 16px; background:none; border:1px solid var(--border); color:var(--muted); border-radius:3px; font-size:0.75rem; letter-spacing:1.5px; text-transform:uppercase; font-family:'Inter',sans-serif; cursor:pointer; margin-bottom:20px; }
+  .print-btn:hover { border-color:var(--copper); color:var(--copper); }
+  @media print { .print-btn,.tabs{ display:none; } .scenario{ display:block !important; page-break-after:always; } }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Bonneville Retreat · Event Cost Simulation</h1>
+  <span class="badge">2,000-run Monte Carlo</span>
+  <span class="note">Retirement Everest Retreat Series</span>
+</header>
+
+<div class="wrap">
+  <button class="print-btn" onclick="window.print()">🖨 Print All</button>
+  <div style="clear:both;"></div>
+
+  <div class="assumption-note">
+    🏨 <strong>Modeled assumptions:</strong> Room rates $114–$202/night based on Bonneville's published range (standard King and Two Queens rooms only). 60% single occupancy / 40% double occupancy (couples) per your guest mix. Dinner entrées from the actual Pacific Crest menu, $14–$45. Host covers 100% of room + dinner cost — no tax or gratuity included; adjust in the host report as needed.
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showScenario(0,this)">20 Reservations</button>
+    <button class="tab"        onclick="showScenario(1,this)">30 Reservations</button>
+    <button class="tab"        onclick="showScenario(2,this)">40 Reservations</button>
+  </div>
+
+  <!-- 20 RESERVATIONS -->
+  <div class="scenario active" id="s0">
+    <div class="stats">
+      <div class="stat"><div class="stat-label">Reservations</div><div class="stat-val">20</div></div>
+      <div class="stat"><div class="stat-label">Avg room cost</div><div class="stat-val copper">$3,181</div><div class="stat-sub">$159 / reservation</div></div>
+      <div class="stat"><div class="stat-label">Avg dinner cost</div><div class="stat-val copper">$561</div><div class="stat-sub">$28 / reservation</div></div>
+      <div class="stat"><div class="stat-label">Per reservation</div><div class="stat-val">$187</div><div class="stat-sub">room + dinner</div></div>
+    </div>
+
+    <div class="range-card">
+      <h3>Total cost range (room + dinner, no tax/tip)</h3>
+      <div class="range-row">
+        <div class="range-top"><span class="range-scenario">Best case (P10)</span><span style="color:var(--green)">$3,594</span></div>
+        <div class="range-track"><div style="width:60%;height:100%;background:#4caf7d;opacity:0.7;border-radius:4px;"></div></div>
+      </div>
+      <div class="range-row">
+        <div class="range-top"><span class="range-scenario">Median (P50)</span><span style="color:var(--copper)">$3,741</span></div>
+        <div class="range-track"><div style="width:75%;height:100%;background:#b9824f;opacity:0.8;border-radius:4px;"></div></div>
+      </div>
+      <div class="range-row" style="margin-bottom:0">
+        <div class="range-top"><span class="range-scenario">High case (P90)</span><span style="color:var(--amber)">$3,893</span></div>
+        <div class="range-track"><div style="width:90%;height:100%;background:#d4883a;opacity:0.8;border-radius:4px;"></div></div>
+      </div>
+    </div>
+
+    <div class="breakdown">
+      <div class="breakdown-head"><span>Case</span><span>Rooms</span><span>Dinner</span><span>Total</span></div>
+      <div class="breakdown-row"><span class="br-label">Best case (P10)</span><span class="br-muted">~$3,050</span><span class="br-muted">~$544</span><span class="br-green">$3,594</span></div>
+      <div class="breakdown-row"><span class="br-label">Median (P50)</span><span class="br-muted">~$3,181</span><span class="br-muted">~$560</span><span class="br-copper">$3,741</span></div>
+      <div class="breakdown-row"><span class="br-label">High case (P90)</span><span class="br-muted">~$3,320</span><span class="br-muted">~$573</span><span class="br-amber">$3,893</span></div>
+    </div>
+
+    <div class="pp-card">
+      <h3>Per reservation — median scenario</h3>
+      <div class="pp-grid">
+        <div class="pp-box"><div class="pp-name">Room</div><div class="pp-val" style="color:var(--sage-lt);">$159.05</div><div class="pp-sub">avg per reservation</div></div>
+        <div class="pp-box"><div class="pp-name">Dinner</div><div class="pp-val" style="color:var(--sage-lt);">$28.07</div><div class="pp-sub">avg per reservation</div></div>
+        <div class="pp-box"><div class="pp-name">Total</div><div class="pp-val" style="color:var(--copper);">$187.12</div><div class="pp-sub">room + dinner</div></div>
+      </div>
+    </div>
+
+    <div class="planning">
+      <h3>Planning guidance · 20 reservations</h3>
+      <ul>
+        <li><strong>Budget floor:</strong> $3,594 — lightest realistic scenario</li>
+        <li><strong>Safe budget target:</strong> $4,000 — median + buffer for upgrades</li>
+        <li><strong>Per-reservation cost:</strong> ~$187, dominated by room rate (85% of cost)</li>
+        <li><strong>Negotiating a group rate</strong> with the resort directly could meaningfully cut this — worth a call before locking budget</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 30 RESERVATIONS -->
+  <div class="scenario" id="s1">
+    <div class="stats">
+      <div class="stat"><div class="stat-label">Reservations</div><div class="stat-val">30</div></div>
+      <div class="stat"><div class="stat-label">Avg room cost</div><div class="stat-val copper">$4,770</div><div class="stat-sub">$159 / reservation</div></div>
+      <div class="stat"><div class="stat-label">Avg dinner cost</div><div class="stat-val copper">$840</div><div class="stat-sub">$28 / reservation</div></div>
+      <div class="stat"><div class="stat-label">Per reservation</div><div class="stat-val">$187</div><div class="stat-sub">room + dinner</div></div>
+    </div>
+
+    <div class="range-card">
+      <h3>Total cost range (room + dinner, no tax/tip)</h3>
+      <div class="range-row">
+        <div class="range-top"><span class="range-scenario">Best case (P10)</span><span style="color:var(--green)">$5,419</span></div>
+        <div class="range-track"><div style="width:60%;height:100%;background:#4caf7d;opacity:0.7;border-radius:4px;"></div></div>
+      </div>
+      <div class="range-row">
+        <div class="range-top"><span class="range-scenario">Median (P50)</span><span style="color:var(--copper)">$5,610</span></div>
+        <div class="range-track"><div style="width:75%;height:100%;background:#b9824f;opacity:0.8;border-radius:4px;"></div></div>
+      </div>
+      <div class="range-row" style="margin-bottom:0">
+        <div class="range-top"><span class="range-scenario">High case (P90)</span><span style="color:var(--amber)">$5,801</span></div>
+        <div class="range-track"><div style="width:90%;height:100%;background:#d4883a;opacity:0.8;border-radius:4px;"></div></div>
+      </div>
+    </div>
+
+    <div class="breakdown">
+      <div class="breakdown-head"><span>Case</span><span>Rooms</span><span>Dinner</span><span>Total</span></div>
+      <div class="breakdown-row"><span class="br-label">Best case (P10)</span><span class="br-muted">~$4,580</span><span class="br-muted">~$839</span><span class="br-green">$5,419</span></div>
+      <div class="breakdown-row"><span class="br-label">Median (P50)</span><span class="br-muted">~$4,770</span><span class="br-muted">~$840</span><span class="br-copper">$5,610</span></div>
+      <div class="breakdown-row"><span class="br-label">High case (P90)</span><span class="br-muted">~$4,975</span><span class="br-muted">~$826</span><span class="br-amber">$5,801</span></div>
+    </div>
+
+    <div class="pp-card">
+      <h3>Per reservation — median scenario</h3>
+      <div class="pp-grid">
+        <div class="pp-box"><div class="pp-name">Room</div><div class="pp-val" style="color:var(--sage-lt);">$158.99</div><div class="pp-sub">avg per reservation</div></div>
+        <div class="pp-box"><div class="pp-name">Dinner</div><div class="pp-val" style="color:var(--sage-lt);">$28.01</div><div class="pp-sub">avg per reservation</div></div>
+        <div class="pp-box"><div class="pp-name">Total</div><div class="pp-val" style="color:var(--copper);">$187.00</div><div class="pp-sub">room + dinner</div></div>
+      </div>
+    </div>
+
+    <div class="planning">
+      <h3>Planning guidance · 30 reservations</h3>
+      <ul>
+        <li><strong>Budget floor:</strong> $5,419 — lightest realistic scenario</li>
+        <li><strong>Safe budget target:</strong> $6,000 — median + buffer</li>
+        <li><strong>Per-reservation cost:</strong> ~$187, stable across scenarios</li>
+        <li><strong>At this size,</strong> ask Bonneville about group block rates for 13+ rooms — their group reservation policy applies and may unlock a discount</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 40 RESERVATIONS -->
+  <div class="scenario" id="s2">
+    <div class="stats">
+      <div class="stat"><div class="stat-label">Reservations</div><div class="stat-val">40</div></div>
+      <div class="stat"><div class="stat-label">Avg room cost</div><div class="stat-val copper">$6,356</div><div class="stat-sub">$159 / reservation</div></div>
+      <div class="stat"><div class="stat-label">Avg dinner cost</div><div class="stat-val copper">$1,120</div><div class="stat-sub">$28 / reservation</div></div>
+      <div class="stat"><div class="stat-label">Per reservation</div><div class="stat-val">$187</div><div class="stat-sub">room + dinner</div></div>
+    </div>
+
+    <div class="range-card">
+      <h3>Total cost range (room + dinner, no tax/tip)</h3>
+      <div class="range-row">
+        <div class="range-top"><span class="range-scenario">Best case (P10)</span><span style="color:var(--green)">$7,260</span></div>
+        <div class="range-track"><div style="width:60%;height:100%;background:#4caf7d;opacity:0.7;border-radius:4px;"></div></div>
+      </div>
+      <div class="range-row">
+        <div class="range-top"><span class="range-scenario">Median (P50)</span><span style="color:var(--copper)">$7,472</span></div>
+        <div class="range-track"><div style="width:75%;height:100%;background:#b9824f;opacity:0.8;border-radius:4px;"></div></div>
+      </div>
+      <div class="range-row" style="margin-bottom:0">
+        <div class="range-top"><span class="range-scenario">High case (P90)</span><span style="color:var(--amber)">$7,700</span></div>
+        <div class="range-track"><div style="width:90%;height:100%;background:#d4883a;opacity:0.8;border-radius:4px;"></div></div>
+      </div>
+    </div>
+
+    <div class="breakdown">
+      <div class="breakdown-head"><span>Case</span><span>Rooms</span><span>Dinner</span><span>Total</span></div>
+      <div class="breakdown-row"><span class="br-label">Best case (P10)</span><span class="br-muted">~$6,150</span><span class="br-muted">~$1,110</span><span class="br-green">$7,260</span></div>
+      <div class="breakdown-row"><span class="br-label">Median (P50)</span><span class="br-muted">~$6,356</span><span class="br-muted">~$1,120</span><span class="br-copper">$7,472</span></div>
+      <div class="breakdown-row"><span class="br-label">High case (P90)</span><span class="br-muted">~$6,580</span><span class="br-muted">~$1,135</span><span class="br-amber">$7,700</span></div>
+    </div>
+
+    <div class="pp-card">
+      <h3>Per reservation — median scenario</h3>
+      <div class="pp-grid">
+        <div class="pp-box"><div class="pp-name">Room</div><div class="pp-val" style="color:var(--sage-lt);">$158.90</div><div class="pp-sub">avg per reservation</div></div>
+        <div class="pp-box"><div class="pp-name">Dinner</div><div class="pp-val" style="color:var(--sage-lt);">$28.01</div><div class="pp-sub">avg per reservation</div></div>
+        <div class="pp-box"><div class="pp-name">Total</div><div class="pp-val" style="color:var(--copper);">$186.91</div><div class="pp-sub">room + dinner</div></div>
+      </div>
+    </div>
+
+    <div class="planning">
+      <h3>Planning guidance · 40 reservations</h3>
+      <ul>
+        <li><strong>Budget floor:</strong> $7,260 — lightest realistic scenario</li>
+        <li><strong>Safe budget target:</strong> $8,000 — covers high case + buffer</li>
+        <li><strong>Per-reservation cost:</strong> ~$187, the most stable figure across the whole series</li>
+        <li><strong>At full capacity,</strong> this crosses into a true group block — definitely negotiate rates directly with the resort's sales team rather than booking individually</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="disclaimer">Simulation based on 2,000 randomized runs weighted by likely room/dinner selection. Room rates reflect Bonneville's published $114–$202/night range; 60/40 single/double occupancy split modeled per your guest mix. Excludes WA sales tax, gratuity, and spa add-ons. Adjust the room rate assumption directly in the host report once a group rate is confirmed.</p>
+</div>
+
+<script>
+function showScenario(idx, btn) {
+  document.querySelectorAll('.scenario').forEach((s,i) => s.classList.toggle('active', i===idx));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
