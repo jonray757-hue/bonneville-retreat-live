@@ -247,24 +247,22 @@
     margin-bottom: 32px; line-height: 1.6; border-radius: 0 2px 2px 0;
   }
 
-  /* name field */
   .field-wrap { margin-bottom: 32px; }
   .field-label {
     display: block; font-size: 0.62rem;
     letter-spacing: 3px; text-transform: uppercase;
     color: var(--copper); margin-bottom: 10px;
   }
-  input[type="text"] {
+  input[type="text"], input[type="email"], input[type="tel"] {
     width: 100%; padding: 14px 16px;
     background: var(--panel); border: 1px solid var(--border);
     color: var(--sage-lt); font-family: 'Inter', sans-serif;
     font-size: 0.95rem; font-weight: 300; border-radius: 2px;
     transition: border-color 0.2s;
   }
-  input[type="text"]:focus { outline: none; border-color: var(--copper); }
-  input[type="text"].err { border-color: var(--red); }
+  input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus { outline: none; border-color: var(--copper); }
+  input[type="text"].err, input[type="email"].err, input[type="tel"].err { border-color: var(--red); }
 
-  /* pick label */
   .pick-head {
     display: flex; align-items: baseline;
     justify-content: space-between; margin-bottom: 14px;
@@ -279,7 +277,6 @@
     text-transform: uppercase; color: var(--muted);
   }
 
-  /* cards */
   .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
   @media(max-width: 520px) { .cards { grid-template-columns: 1fr; } }
 
@@ -324,7 +321,6 @@
 
   .section-gap { margin-top: 32px; }
 
-  /* submit */
   .submit-area { margin-top: 40px; text-align: center; }
   .submit-btn {
     width: 100%; padding: 18px;
@@ -340,7 +336,6 @@
     font-size: 0.68rem; color: var(--muted); margin-top: 14px; line-height: 1.6;
   }
 
-  /* spinner */
   .spinner {
     display: inline-block; width: 14px; height: 14px;
     border: 2px solid rgba(0,0,0,0.25); border-top-color: #000;
@@ -385,6 +380,34 @@
     border-top: 1px solid var(--border);
     padding: 26px 24px; text-align: center;
     font-size: 0.66rem; color: var(--muted); letter-spacing: 1px;
+  }
+  
+  /* contact info */
+  .contact-info {
+    text-align: center;
+    padding: 40px 24px;
+    border-bottom: 1px solid var(--border);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .contact-info h3 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.2rem;
+    color: var(--sage-lt);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+  .contact-info p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .contact-info a {
+    color: var(--copper);
+    text-decoration: none;
+  }
+  .contact-info a:hover {
+    text-decoration: underline;
   }
 </style>
 </head>
@@ -461,6 +484,17 @@
   </div>
 </div>
 
+<!-- ── CONTACT INFO ── -->
+<div class="contact-info">
+  <h3>Questions About Your Stay?</h3>
+  <p>
+    <strong>Host:</strong> Harris Assurance Group<br>
+    <strong>Phone:</strong> <a href="tel:360-XXX-XXXX">(360) XXX-XXXX</a><br>
+    <strong>Email:</strong> <a href="mailto:info@harrisassurancegroup.com">info@harrisassurancegroup.com</a><br>
+    <strong>Website:</strong> <a href="https://www.harrisassurancegroup.com" target="_blank">www.harrisassurancegroup.com</a>
+  </p>
+</div>
+
 <!-- ── ORDER FORM ── -->
 <div class="order-section" id="order">
   <div class="section-label">Your Stay &amp; Dinner Selection</div>
@@ -477,7 +511,19 @@
   <!-- Name -->
   <div class="field-wrap">
     <label class="field-label" for="guestName">Your Full Name</label>
-    <input type="text" id="guestName" placeholder="First and last name" autocomplete="name" />
+    <input type="text" id="guestName" placeholder="First and last name" autocomplete="name" required />
+  </div>
+  
+  <!-- Email -->
+  <div class="field-wrap">
+    <label class="field-label" for="guestEmail">Email Address</label>
+    <input type="email" id="guestEmail" placeholder="your@email.com" autocomplete="email" required />
+  </div>
+  
+  <!-- Phone -->
+  <div class="field-wrap">
+    <label class="field-label" for="guestPhone">Phone Number</label>
+    <input type="tel" id="guestPhone" placeholder="(360) 555-1234" autocomplete="tel" required />
   </div>
 
   <!-- Room -->
@@ -648,198 +694,277 @@
 </div>
 
 <!-- ── SUCCESS ── -->
-<div class="success" id="success">
+<div class="success" id="successView">
   <div class="success-ring">✓</div>
   <h2>You're confirmed.</h2>
-  <p>We look forward to hosting you at Bonneville Hot Springs. A reminder with arrival details will follow closer to the date.</p>
-  <div class="success-card" id="success-card"></div>
+  <p>Your room and dinner are reserved. We'll send you a confirmation email with check-in details and directions to Bonneville Hot Springs.</p>
+  <div class="success-card" id="successDetails"></div>
+  <p style="margin-top:24px; font-size:0.78rem; color:var(--muted);">Questions? Call us at <a href="tel:360-XXX-XXXX" style="color:var(--copper)">(360) XXX-XXXX</a></p>
 </div>
 
 <footer>
-  Retirement Everest · Private Retreat Series · Bonneville Hot Springs Resort &amp; Spa · North Bonneville, WA
+  Hosted by Harris Assurance Group · Vancouver, WA · <a href="https://www.harrisassurancegroup.com" target="_blank" style="color:var(--muted)">www.harrisassurancegroup.com</a>
 </footer>
 
 <script>
-const STORAGE_KEY = 'bonneville_orders_v1';
+// ======== CONFIGURATION ========
+const CONFIG = {
+  // FORMSPREE - Email notifications (FREE, 50 submissions/month)
+  FORMSPREE_ENDPOINT: 'https://formspree.io/f/YOUR_FORM_ID',
+  
+  // GOOGLE SHEETS - Auto-save to spreadsheet
+  // You'll need to create a Google Apps Script web app
+  GOOGLE_SHEETS_ENDPOINT: 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec',
+  
+  // GHL (GoHighLevel) - Add to CRM
+  GHL_API_KEY: 'pit-aafb5832-ba83-4424-83ec-81df548404b6',
+  GHL_LOCATION_ID: 'O3yRdNIkD4jCjBGcKaSK',
+  GHL_ENDPOINT: 'https://services.leadconnectorhq.com/contacts/',
+  
+  // YOUR CONTACT INFO (for notifications)
+  HOST_EMAIL: 'info@harrisassurancegroup.com',
+  HOST_PHONE: '(360) XXX-XXXX'
+};
 
-const STARTERS = [
-  { id:'st1', name:'The Wedge', desc:'Bib lettuce, carrots, red onions, cherry tomatoes, Gorgonzola, lamb' },
-  { id:'st2', name:'Classic Caesar', desc:'Caesar dressing, grana padano cheese, romaine lettuce, lemon wedge' },
-  { id:'st3', name:'Mediterranean Tapas Board', desc:'Curated small plates — olives, cured meats, marinated vegetables, flatbread' },
-  { id:'st4', name:'Seasonal Soup', desc:"Chef's daily soup, made fresh with local ingredients" },
-  { id:'st5', name:'Crispy Calamari', desc:'Lightly fried calamari, lemon aioli, fresh herbs' },
-];
-
-const DRINKS = [
-  { id:'dr1', name:'House Red or White Wine', desc:'Glass of local Columbia Gorge wine, ask staff for tonight\'s pour' },
-  { id:'dr2', name:'Craft Beer', desc:'Local Pacific Northwest draft selection' },
-  { id:'dr3', name:'Handcrafted Cocktail', desc:'Bartender\'s seasonal cocktail of the evening' },
-  { id:'dr4', name:'Sparkling Water', desc:'Chilled sparkling water, lemon or lime' },
-  { id:'dr5', name:'Coffee or Tea', desc:'Freshly brewed coffee or a selection of teas' },
-];
-
-const ROOMS = [
-  { id:'r1', name:'King with Balcony', desc:'Plush king bed, private balcony, mountain views — sleeps 2', occupancy:'single', sleeps:2 },
-  { id:'r2', name:'King with Balcony (Pet Friendly)', desc:'Same comfort as King with Balcony, pet-friendly room — sleeps 2', occupancy:'single', sleeps:2 },
-  { id:'r3', name:'King Garden View with Balcony', desc:'King bed, peaceful garden views, private balcony — sleeps 2', occupancy:'single', sleeps:2 },
-  { id:'r4', name:'Two Queens Garden View with Balcony', desc:'Two queen beds, garden views — ideal for couples or friends, sleeps 4', occupancy:'double', sleeps:4 },
-  { id:'r5', name:'Two Queens Garden View (Pet Friendly)', desc:'Two queen beds, garden views, pet-friendly — sleeps 4', occupancy:'double', sleeps:4 },
-];
-
-const DINNER = [
-  { id:'d1', name:'Citrus Cedar Plank Wild King Salmon', desc:'Signature dish, cedar plank roasted with citrus glaze', price:36.00 },
-  { id:'d2', name:'Muscovy Duck Breast', desc:'Tender duck breast, prepared to highlight natural flavor', price:45.00 },
-  { id:'d3', name:'Grilled Coho Salmon', desc:'Coho salmon, pilaf rice, seasonal vegetables, citrus jus', price:28.00 },
-  { id:'d4', name:'Fish & Chips', desc:'Northwest classic, crispy battered fish, fries', price:23.00 },
-  { id:'d5', name:'Mediterranean Tapas Plate', desc:'Curated selection of Mediterranean-inspired small plates', price:24.00 },
-  { id:'d6', name:'Classic Caesar Salad', desc:'Caesar dressing, grana padano, romaine, lemon wedge', price:14.00, veg:true },
-  { id:'d7', name:'Seasonal Vegetable Plate', desc:'Chef\'s selection of seasonal, locally sourced vegetables', price:20.00, vegan:true },
-];
-
-let selRoom = null, selDinner = null, selStarter = null, selDrink = null;
-
-function renderSkippableCards(containerId, items, skipLabel, skipDesc) {
-  const skipCard = `
-    <div class="card selected" id="card-skip-${containerId}" data-skip="${containerId}" style="display:flex;align-items:center;">
-      <div class="card-radio" style="position:static;transform:none;margin-right:10px;"><div class="card-dot" style="opacity:1;"></div></div>
-      <div>
-        <div class="card-name">${skipLabel}</div>
-        <div class="card-desc">${skipDesc}</div>
-      </div>
-    </div>`;
-  const itemCards = items.map(item => `
-    <div class="card" id="card-${item.id}" data-pick="${containerId}" data-id="${item.id}">
-      <div class="card-radio"><div class="card-dot"></div></div>
-      <div class="card-name">${item.name}</div>
-      <div class="card-desc">${item.desc}</div>
-    </div>
-  `).join('');
-  document.getElementById(containerId).innerHTML = skipCard + itemCards;
+// ======== CARD SELECTION LOGIC ========
+function initCardGroups() {
+  ['room','starter-cards','drink-cards','dinner'].forEach(group => {
+    const container = document.getElementById(group + '-cards');
+    if (!container) return;
+    const cards = container.querySelectorAll('.card');
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        // If it's a skip card, just select it and deselect others
+        if (card.dataset.skip) {
+          cards.forEach(c => c.classList.remove('selected'));
+          card.classList.add('selected');
+          return;
+        }
+        // Normal selection: deselect skip if present, select this card
+        cards.forEach(c => {
+          if (c.dataset.skip) c.classList.remove('selected');
+          else if (c === card) c.classList.add('selected');
+          else c.classList.remove('selected');
+        });
+      });
+    });
+  });
 }
 
-function renderStarterCards() {
-  renderSkippableCards('starter-cards', STARTERS, "No thanks, I'll wait", 'Skip the starter');
-}
-function renderDrinkCards() {
-  renderSkippableCards('drink-cards', DRINKS, "No thanks, I'll wait", 'Skip the drink');
-}
-
-function selectSkippable(containerId, id) {
-  const prevId = (containerId === 'starter-cards' ? selStarter : selDrink) || ('skip-' + containerId);
-  document.getElementById('card-' + prevId)?.classList.remove('selected');
-  const newId = id || ('skip-' + containerId);
-  if (containerId === 'starter-cards') selStarter = id; else selDrink = id;
-  document.getElementById('card-' + newId)?.classList.add('selected');
+// ======== GET SELECTED VALUES ========
+function getSelectedValue(group) {
+  const container = document.getElementById(group + '-cards');
+  if (!container) return '';
+  const selected = container.querySelector('.card.selected');
+  if (!selected) return '';
+  if (selected.dataset.skip) return 'Skipped';
+  return selected.querySelector('.card-name')?.textContent?.trim() || '';
 }
 
-document.getElementById('starter-cards').addEventListener('click', function(e) {
-  const skip = e.target.closest('[data-skip]');
-  const pick = e.target.closest('[data-pick="starter-cards"]');
-  if (skip) selectSkippable('starter-cards', null);
-  else if (pick) selectSkippable('starter-cards', pick.getAttribute('data-id'));
-});
-
-document.getElementById('drink-cards').addEventListener('click', function(e) {
-  const skip = e.target.closest('[data-skip]');
-  const pick = e.target.closest('[data-pick="drink-cards"]');
-  if (skip) selectSkippable('drink-cards', null);
-  else if (pick) selectSkippable('drink-cards', pick.getAttribute('data-id'));
-});
-
-function renderRoomCards() {
-  document.getElementById('rooms-cards').innerHTML = ROOMS.map(item => `
-    <div class="card" id="card-${item.id}" data-pick="room" data-id="${item.id}">
-      <div class="card-radio"><div class="card-dot"></div></div>
-      <div class="card-name">
-        ${item.name}
-        <span class="tag tag-sleeps">Sleeps ${item.sleeps}</span>
-      </div>
-      <div class="card-desc">${item.desc}</div>
-    </div>
-  `).join('');
-}
-
-function renderDinnerCards() {
-  document.getElementById('dinner-cards').innerHTML = DINNER.map(item => `
-    <div class="card" id="card-${item.id}" data-pick="dinner" data-id="${item.id}">
-      <div class="card-radio"><div class="card-dot"></div></div>
-      <div class="card-name">
-        ${item.name}
-        ${item.vegan ? '<span class="tag tag-v">Vegan</span>' : ''}
-        ${item.veg && !item.vegan ? '<span class="tag tag-v">Veg</span>' : ''}
-      </div>
-      <div class="card-desc">${item.desc}</div>
-    </div>
-  `).join('');
-}
-
-function selectCard(type, id) {
-  if (type === 'room') {
-    if (selRoom) document.getElementById('card-' + selRoom)?.classList.remove('selected');
-    selRoom = id;
-    document.getElementById('err-room').classList.remove('show');
+// ======== FORM SUBMISSION ========
+async function submitForm() {
+  const btn = document.getElementById('submitBtn');
+  const name = document.getElementById('guestName').value.trim();
+  const email = document.getElementById('guestEmail').value.trim();
+  const phone = document.getElementById('guestPhone').value.trim();
+  
+  // Validation
+  let hasError = false;
+  
+  if (!name) {
+    document.getElementById('guestName').classList.add('err');
+    hasError = true;
   } else {
-    if (selDinner) document.getElementById('card-' + selDinner)?.classList.remove('selected');
-    selDinner = id;
+    document.getElementById('guestName').classList.remove('err');
+  }
+  
+  if (!email || !email.includes('@')) {
+    document.getElementById('guestEmail').classList.add('err');
+    hasError = true;
+  } else {
+    document.getElementById('guestEmail').classList.remove('err');
+  }
+  
+  if (!phone) {
+    document.getElementById('guestPhone').classList.add('err');
+    hasError = true;
+  } else {
+    document.getElementById('guestPhone').classList.remove('err');
+  }
+  
+  const room = getSelectedValue('rooms');
+  if (!room || room === 'Skipped') {
+    document.getElementById('err-room').classList.add('show');
+    hasError = true;
+  } else {
+    document.getElementById('err-room').classList.remove('show');
+  }
+  
+  const dinner = getSelectedValue('dinner');
+  if (!dinner || dinner === 'Skipped') {
+    document.getElementById('err-dinner').classList.add('show');
+    hasError = true;
+  } else {
     document.getElementById('err-dinner').classList.remove('show');
   }
-  document.getElementById('card-' + id).classList.add('selected');
+  
+  if (hasError) {
+    btn.textContent = 'Please fix the errors above';
+    setTimeout(() => { btn.textContent = 'Confirm My Reservation'; }, 3000);
+    return;
+  }
+  
+  // Gather data
+  const formData = {
+    name: name,
+    email: email,
+    phone: phone,
+    room: room,
+    starter: getSelectedValue('starter-cards'),
+    drink: getSelectedValue('drink-cards'),
+    dinner: dinner,
+    submittedAt: new Date().toISOString(),
+    source: 'Bonneville Retreat Landing Page'
+  };
+  
+  // Loading state
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Processing...';
+  
+  try {
+    // Send to all three services
+    await Promise.allSettled([
+      sendToFormspree(formData),
+      sendToGoogleSheets(formData),
+      sendToGHL(formData)
+    ]);
+    
+    // Show success
+    showSuccess(formData);
+  } catch (err) {
+    console.error('Submission error:', err);
+    btn.disabled = false;
+    btn.textContent = 'Something went wrong. Try again.';
+  }
 }
 
-document.getElementById('rooms-cards').addEventListener('click', function(e) {
-  const card = e.target.closest('[data-pick="room"]');
-  if (!card) return;
-  selectCard('room', card.getAttribute('data-id'));
-});
+// ======== 1. SEND TO FORMSPREE (Email) ========
+async function sendToFormspree(data) {
+  if (CONFIG.FORMSPREE_ENDPOINT.includes('YOUR_FORM_ID')) {
+    console.log('Formspree not configured - skipping email');
+    return;
+  }
+  
+  try {
+    const response = await fetch(CONFIG.FORMSPREE_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        room: data.room,
+        starter: data.starter,
+        drink: data.drink,
+        dinner: data.dinner,
+        message: `New Bonneville Retreat Registration:\n\nName: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone}\nRoom: ${data.room}\nStarter: ${data.starter}\nDrink: ${data.drink}\nDinner: ${data.dinner}`
+      })
+    });
+    if (!response.ok) throw new Error('Formspree error');
+    console.log('✓ Email sent via Formspree');
+  } catch (err) {
+    console.error('Formspree failed:', err);
+  }
+}
 
-document.getElementById('dinner-cards').addEventListener('click', function(e) {
-  const card = e.target.closest('[data-pick="dinner"]');
-  if (!card) return;
-  selectCard('dinner', card.getAttribute('data-id'));
-});
+// ======== 2. SEND TO GOOGLE SHEETS ========
+async function sendToGoogleSheets(data) {
+  if (CONFIG.GOOGLE_SHEETS_ENDPOINT.includes('YOUR_SCRIPT_ID')) {
+    console.log('Google Sheets not configured - skipping');
+    return;
+  }
+  
+  try {
+    const response = await fetch(CONFIG.GOOGLE_SHEETS_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    if (!response.ok) throw new Error('Google Sheets error');
+    console.log('✓ Saved to Google Sheets');
+  } catch (err) {
+    console.error('Google Sheets failed:', err);
+  }
+}
 
-document.getElementById('submitBtn').addEventListener('click', function() {
-  const name = document.getElementById('guestName').value.trim();
-  let ok = true;
-  document.getElementById('guestName').classList.toggle('err', !name);
-  if (!selRoom)   { document.getElementById('err-room').classList.add('show');   ok = false; }
-  if (!selDinner) { document.getElementById('err-dinner').classList.add('show'); ok = false; }
-  if (!name || !ok) return;
+// ======== 3. SEND TO GHL (CRM) ========
+async function sendToGHL(data) {
+  try {
+    const response = await fetch(CONFIG.GHL_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + CONFIG.GHL_API_KEY,
+        'Version': '2021-07-28',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        locationId: CONFIG.GHL_LOCATION_ID,
+        firstName: data.name.split(' ')[0] || '',
+        lastName: data.name.split(' ').slice(1).join(' ') || '',
+        email: data.email,
+        phone: data.phone,
+        tags: ['bonneville-retreat', 'retirement-everest', 'event-registration'],
+        customFields: [
+          { id: 'room_preference', value: data.room },
+          { id: 'dinner_selection', value: data.dinner },
+          { id: 'starter_selection', value: data.starter },
+          { id: 'drink_selection', value: data.drink }
+        ]
+      })
+    });
+    if (!response.ok) throw new Error('GHL error');
+    console.log('✓ Added to GHL CRM');
+  } catch (err) {
+    console.error('GHL failed:', err);
+  }
+}
 
-  const btn = this;
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span>Confirming…';
-
-  const room = ROOMS.find(r => r.id === selRoom);
-  const dinner = DINNER.find(d => d.id === selDinner);
-  const starter = selStarter ? STARTERS.find(s => s.id === selStarter) : null;
-  const drink = selDrink ? DRINKS.find(d => d.id === selDrink) : null;
-
-  const order = {
-    id: Date.now(), name,
-    room: room.name, roomId: room.id, occupancy: room.occupancy,
-    dinner: dinner.name, dinnerId: dinner.id, dinnerPrice: dinner.price,
-    starter: starter ? starter.name : null, starterId: starter ? starter.id : null,
-    drink: drink ? drink.name : null, drinkId: drink ? drink.id : null,
-    ts: new Date().toISOString()
-  };
-
-  const all = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-  all.push(order);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
-
-  document.querySelector('.order-section').style.display = 'none';
-  document.getElementById('success').classList.add('show');
-  document.getElementById('success-card').innerHTML = `
-    <div class="sc-row"><div class="sc-label">Name</div><div class="sc-val">${name}</div></div>
-    <div class="sc-row"><div class="sc-label">Room</div><div class="sc-val">${room.name}</div></div>
-    ${starter ? `<div class="sc-row"><div class="sc-label">Starter</div><div class="sc-val">${starter.name}</div></div>` : ''}
-    ${drink ? `<div class="sc-row"><div class="sc-label">Drink</div><div class="sc-val">${drink.name}</div></div>` : ''}
-    <div class="sc-row" style="margin-bottom:0"><div class="sc-label">Dinner</div><div class="sc-val">${dinner.name}</div></div>
+// ======== SUCCESS VIEW ========
+function showSuccess(data) {
+  document.getElementById('order').style.display = 'none';
+  const successView = document.getElementById('successView');
+  successView.classList.add('show');
+  
+  const details = document.getElementById('successDetails');
+  details.innerHTML = `
+    <div class="sc-row">
+      <div class="sc-label">Name</div>
+      <div class="sc-val">${data.name}</div>
+    </div>
+    <div class="sc-row">
+      <div class="sc-label">Room</div>
+      <div class="sc-val">${data.room}</div>
+    </div>
+    <div class="sc-row">
+      <div class="sc-label">Dinner</div>
+      <div class="sc-val">${data.dinner}</div>
+    </div>
+    <div class="sc-row">
+      <div class="sc-label">Email</div>
+      <div class="sc-val">${data.email}</div>
+    </div>
   `;
-});
+  
+  // Scroll to success
+  successView.scrollIntoView({ behavior: 'smooth' });
+}
 
-// Cards are pre-rendered in HTML; JS only handles interactivity.
+// ======== INITIALIZE ========
+document.addEventListener('DOMContentLoaded', () => {
+  initCardGroups();
+  document.getElementById('submitBtn').addEventListener('click', submitForm);
+});
 </script>
+
 </body>
 </html>
